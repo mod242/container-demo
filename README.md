@@ -14,30 +14,24 @@ The platform installation tool requires library files and service containers fro
 	
 This utility contains scripts to set up an IBM Content Fundation docker environment by performing the following tasks:
 
-- Prepare the docker environment
 - Configure and start all the required containers.
-- Create the users and groups in OpenLDAP required for the FileNet Content Platform Engine and Content Navigator
-- Create and configure the required databases in DB2
+- Create the users and groups in OpenLDAP
+- Create and configure databases in DB2
 - Create a FileNet P8 Domain, object store and workflow system.
 - Create an IBM Content Navigator repository and desktop.
 
-
-
-
-
 # Preconditions
-## 1. System requirements
+## System requirements
 - Supported platform: 
   - Ubuntu 16.04 and above 
   - Mac OS 10.10.1 and above
 - Minimum configuration: 2 CPU cores, 8 GB RAM, 50GB free space
 - Network with internet access
 - Docker CE or EE 17.x.x and above
-- OpenLDAP 1.2.1 container from https://github.com/osixia/docker-openldap
-- Db2 Developer C 11.1.3.3x-x86_64 container from https://store.docker.com/images/db2-developer-c-edition
-
-## 2. Access requirement
-Use the intructions in [this URL](https://github.com/ibm-ecm/container-overview#access-ecm-container-images-in-docker-cloud-private-repositories) to get access to the ECM Container images in Docker Cloud private repository, complete steps 1 and 2 in the guide.
+- OpenLDAP 1.2.1 container from [Docker Hub] (https://hub.docker.com/r/osixia/openldap/)
+- Db2 Developer C 11.1.3.3x-x86_64 container from [Docker Store] (https://store.docker.com/images/db2-developer-c-edition)
+- IBM Content Platform Engine and IBM Content Navigator container images from [IBM Passport Advantage] (https://www-01.ibm.com/software/passportadvantage/pacustomers.html)
+- ECM Container PIT installer from [GitHub] (https://github.com/ibm-ecm/container-demo)
 
 # Limitations
 ## 1. Special notice for systems with multiple accounts
@@ -92,8 +86,7 @@ Open the setproperties.sh file for editing, and update the following information
     Save your changes.
     
 From the command line, in the same directory as the tool, run the container platform installation tool command:
-
-    ```sudo ./cpit.sh```
+```sudo ./cpit.sh```
 
 After the tool completes, review the output log file, cpit_log.log.
 
