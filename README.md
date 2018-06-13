@@ -28,10 +28,10 @@ This utility contains scripts to set up an IBM Content Fundation docker environm
 - Minimum configuration: 2 CPU cores, 8 GB RAM, 50GB free space
 - Network with internet access
 - Docker CE or EE 17.x.x and above
-- OpenLDAP 1.2.1 container from [Docker Hub] (https://hub.docker.com/r/osixia/openldap/)
-- Db2 Developer C 11.1.3.3x-x86_64 container from [Docker Store] (https://store.docker.com/images/db2-developer-c-edition)
-- IBM Content Platform Engine and IBM Content Navigator container images from [IBM Passport Advantage] (https://www-01.ibm.com/software/passportadvantage/pacustomers.html)
-- ECM Container PIT installer from [GitHub] (https://github.com/ibm-ecm/container-demo)
+- OpenLDAP 1.2.1 container from [Docker Hub](https://github.com/osixia/docker-openldap)
+- Db2 Developer C 11.1.3.3x-x86_64 container from [Docker Store](https://store.docker.com/images/db2-developer-c-edition)
+- IBM Content Platform Engine and IBM Content Navigator container images from [IBM Passport Advantage](https://www-01.ibm.com/software/passportadvantage/pacustomers.html)
+- ECM Container PIT installer from [GitHub](https://github.com/ibm-ecm/container-demo)
 
 # Limitations
 ## 1. Special notice for systems with multiple accounts
@@ -57,15 +57,15 @@ Stopping and starting the containers does not destroy any data. However, if you 
 
 
 # Quick start
-On your target server, install the Docker libraries for a container platform. Procedures vary by server platform. See the following links for detailed instructions:
+1. On your target server, install the Docker libraries for a container platform. Procedures vary by server platform. See the following links for detailed instructions:
         Install Docker CE For Ubuntu
         Installa Docker for Mac
 
-Download the OpenLDAP container from the Docker hub and save it to your download directory. Use the following link to download: Download OpenLDAP
+Download the OpenLDAP container from the [Docker hub](https://hub.docker.com/r/osixia/openldap/)
 
-Download the DB2 V11.1.3.3 Developer-C Edition container from the Docker Store and save it to your download directory. Use the following link to download: Db2 container download
+Download the DB2 V11.1.3.3 Developer-C Edition container from the [Docker Store](https://store.docker.com/images/db2-developer-c-edition)
 
-Create a directory on your target server for container downloads.
+Create a directory on your target server for the ECM container downloads.
 
 Download the following containers from IBM Passport Advantage and save them to your download directory.
         IBM Content Platform Engine container
@@ -77,13 +77,13 @@ Extract the contents of the container platform installation tool archive file.
 
 Review both the license agreement files.
 
-Open the setproperties.sh file for editing, and update the following information:
-	Update the DOWNLOAD_LOCATION parameter with the full path of the containers that you downloaded from IBM Passport Advantage
-
-	- set ```DOWNLOAD_LOCATION=<path to downloaded container image (.tar) files>```
-	- set ```LICENSE_ACCEPTED=true``` (after reviewing license file ```LICENSE.txt```)
-    Update all other required parameter values.
-    Save your changes.
+Open the setProperties.sh file for editing, and update the following information:
+- Set the DOWNLOAD_LOCATION paramter value to the location (full path) of the directory you created in step 2
+	```DOWNLOAD_LOCATION=<path to downloaded container image (.tar) files>```
+- Set the LICENSE_ACCEPTED parameter value
+	```LICENSE_ACCEPTED=true``` (after reviewing license file ```LICENSE.txt```)
+ - Update all other required parameter values.
+- Save your changes.
     
 From the command line, in the same directory as the tool, run the container platform installation tool command:
 ```sudo ./cpit.sh```
