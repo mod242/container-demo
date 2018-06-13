@@ -99,11 +99,11 @@ Stopping and starting the containers does not destroy any data. However, if you 
 	- icn
 
 3. Verify the container deployment by logging in to the following applications:
-	- Administration Console for Content Platform Engine: http://<hostname>:9080/acce
+	- Administration Console for Content Platform Engine: http://hosname:9080/acce
 		- Login: P8Admin
 		- Password: GLOBAL_PASSWORD
 	
-	- IBM Content Navigator: http://<hostname>:9080/navigator
+	- IBM Content Navigator: http://hostname:9080/navigator
 		- Login: P8Admin
 		- Password: GLOBAL_PASSWORD
 
