@@ -58,31 +58,31 @@ Stopping and starting the containers does not destroy any data. However, if you 
 
 # Quick start
 1. On your target server, install the Docker libraries for a container platform. Procedures vary by server platform. See the following links for detailed instructions:
-        Install Docker CE For Ubuntu
-        Installa Docker for Mac
+[Install Docker CE For Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+[Installa Docker for Mac](https://docs.docker.com/docker-for-mac/install/)
 
-Download the OpenLDAP container from the [Docker hub](https://hub.docker.com/r/osixia/openldap/)
+2. Download the OpenLDAP container from the [Docker hub](https://hub.docker.com/r/osixia/openldap/)
 
-Download the DB2 V11.1.3.3 Developer-C Edition container from the [Docker Store](https://store.docker.com/images/db2-developer-c-edition)
+3. Download the DB2 V11.1.3.3 Developer-C Edition container from the [Docker Store](https://store.docker.com/images/db2-developer-c-edition)
 
-Create a directory on your target server for the ECM container downloads.
+4. Create a directory on your target server for the ECM container downloads.
 
-Download the following containers from IBM Passport Advantage and save them to your download directory.
-        IBM Content Platform Engine container
-        IBM Content Navigator container
+5. Download the following containers from IBM Passport Advantage and save them to your download directory.
+- IBM Content Platform Engine container
+- IBM Content Navigator container
 
-Download the container platform installation tool from the Github repository and save it to your download directory. 
+6. Download the container platform installation tool from the [Github repository](https://github.com/ibm-ecm/container-demo) and save it to your download directory. 
     
-Extract the contents of the container platform installation tool archive file.
+7. Extract the contents of the container platform installation tool archive file.
 
-Review both the license agreement files.
+8. Review both the license agreement files: FNCS_License.txt and ICN_License.txt
 
-Open the setProperties.sh file for editing, and update the following information:
+9. Open the setProperties.sh file for editing, and update the following information:
 - Set the DOWNLOAD_LOCATION paramter value to the location (full path) of the directory you created in step 2
-	```DOWNLOAD_LOCATION=<path to downloaded container image (.tar) files>```
+```DOWNLOAD_LOCATION=<path to downloaded container image (.tar) files>```
 - Set the LICENSE_ACCEPTED parameter value
-	```LICENSE_ACCEPTED=true``` (after reviewing license file ```LICENSE.txt```)
- - Update all other required parameter values.
+```LICENSE_ACCEPTED=true``` (after reviewing license file ```LICENSE.txt```)
+- Update all other required parameter values.
 - Save your changes.
     
 From the command line, in the same directory as the tool, run the container platform installation tool command:
