@@ -79,36 +79,42 @@ Stopping and starting the containers does not destroy any data. However, if you 
 8. Review both the license agreement files: FNCS_License.txt and ICN_License.txt
 
 9. Open the setProperties.sh file for editing, and update the following information:
-	- Set the DOWNLOAD_LOCATION paramter value to the location (full path) of the directory you created in step 2
+	- Set the GLOBAL_PASSWORD 
+	- Set the DOWNLOAD_LOCATION paramter value to the location (full path) of the directory you created in step 2:
 	```DOWNLOAD_LOCATION=<path to downloaded container image (.tar) files>```
-	- Set the LICENSE_ACCEPTED parameter value after reviewing both license files
+	- Set the LICENSE_ACCEPTED parameter value after reviewing both license files:
 	```LICENSE_ACCEPTED=true```
 	- Update all other required parameter values.
 	- Save your changes.
     
-From the command line, in the same directory as the tool, run the container platform installation tool command:
-```sudo ./cpit.sh```
+10. From the command line, in the same directory as the tool, run the container platform installation tool command: ```sudo ./cpit.sh```
 
-After the tool completes, review the output log file, cpit_log.log.
+# Post-install verification
+1. After the tool completes, review the output log file, cpit_log.log.
 
-Run the command ```$docker ps``` to make sure the following docker containers are up and running:
-- ldap
-- db2
-- cpe
-- icn
+2. Run the command ```$docker ps``` to make sure the following docker containers are up and running:
+	- ldap
+	- db2
+	- cpe
+	- icn
 
-Verify the container deployment by logging in to the following applications:
-        Administration Console for Content Platform Engine: http://<hostname>:9080/acce
-        IBM Content Navigator: http://<hostname>:9080/navigator
+3. Verify the container deployment by logging in to the following applications:
+	- Administration Console for Content Platform Engine: http://<hostname>:9080/acce
+		- Login: P8Admin
+		- Password: GLOBAL_PASSWORD
+	
+	- IBM Content Navigator: http://<hostname>:9080/navigator
+		- Login: P8Admin
+		- Password: GLOBAL_PASSWORD
 
 # Usage
 ## Mount volume locations
 The mount volumes specified in the setProperties.sh file will be created under the home folder of the user that is currently logged in.
-E.g., if you login as root and the mount volume for CPE is set to ```CPE_CONFIGFILES_LOC=/home/cpe_data```, then during execution it will be modified to ```CPE_CONFIGFILES_LOC=/root/home/cpe_data``` and the folder /root/home/cpe_data will be created to store all the configuration files.
+E.g., if you login as root and the mount volume for CPE is set to ```CPE_CONFIGFILES_LOC=/home/cpe_data```, then during execution it will be modified to ```CPE_CONFIGFILES_LOC=/root/cpit_data/cpe_data``` and the folder /root/cpit_data/cpe_data will be created to store all the configuration files.
 
 ## Userful info
-- For details of IBM Content Platform Engine, check [here] (https://github.com/ibm-ecm/container-cpe)
-- For details of IBM Content Navigator, check [here] (https://github.com/ibm-ecm/container-icn)
+- [IBM Content Platform Engine Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSNW2F_5.5.0/com.ibm.p8toc.doc/welcome_p8.htm)
+- [IBM Content Navigator Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSEUEX_3.0.3/KC_ditamaps/contentnavigator.htm)
 
 # Support
 Support can be obtained at [IBM® DeveloperWorks Answers](https://developer.ibm.com/answers/)
