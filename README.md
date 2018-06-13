@@ -58,8 +58,9 @@ Stopping and starting the containers does not destroy any data. However, if you 
 
 # Quick start
 1. On your target server, install the Docker libraries for a container platform. Procedures vary by server platform. See the following links for detailed instructions:
-[Install Docker CE For Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
-[Installa Docker for Mac](https://docs.docker.com/docker-for-mac/install/)
+
+	- [Install Docker CE For Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+	- [Installa Docker for Mac](https://docs.docker.com/docker-for-mac/install/)
 
 2. Download the OpenLDAP container from the [Docker hub](https://hub.docker.com/r/osixia/openldap/)
 
@@ -68,8 +69,8 @@ Stopping and starting the containers does not destroy any data. However, if you 
 4. Create a directory on your target server for the ECM container downloads.
 
 5. Download the following containers from IBM Passport Advantage and save them to your download directory.
-- IBM Content Platform Engine container
-- IBM Content Navigator container
+	- IBM Content Platform Engine container
+	- IBM Content Navigator container
 
 6. Download the container platform installation tool from the [Github repository](https://github.com/ibm-ecm/container-demo) and save it to your download directory. 
     
@@ -78,12 +79,12 @@ Stopping and starting the containers does not destroy any data. However, if you 
 8. Review both the license agreement files: FNCS_License.txt and ICN_License.txt
 
 9. Open the setProperties.sh file for editing, and update the following information:
-- Set the DOWNLOAD_LOCATION paramter value to the location (full path) of the directory you created in step 2
-```DOWNLOAD_LOCATION=<path to downloaded container image (.tar) files>```
-- Set the LICENSE_ACCEPTED parameter value
-```LICENSE_ACCEPTED=true``` (after reviewing license file ```LICENSE.txt```)
-- Update all other required parameter values.
-- Save your changes.
+	- Set the DOWNLOAD_LOCATION paramter value to the location (full path) of the directory you created in step 2
+	```DOWNLOAD_LOCATION=<path to downloaded container image (.tar) files>```
+	- Set the LICENSE_ACCEPTED parameter value after reviewing both license files
+	```LICENSE_ACCEPTED=true```
+	- Update all other required parameter values.
+	- Save your changes.
     
 From the command line, in the same directory as the tool, run the container platform installation tool command:
 ```sudo ./cpit.sh```
