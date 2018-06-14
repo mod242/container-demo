@@ -78,7 +78,7 @@ Stopping and starting the containers does not destroy any data. However, if you 
     
 7. Extract the contents of the container platform installation tool archive file.
 
-8. Review both the license agreement files: FNCS_License.txt and ICN_License.txt
+8. Review both the license agreement files: ```FNCS_License.txt``` and ```ICN_License.txt```
 
 9. Open the setProperties.sh file for editing, and update the following information:
 	- Set the GLOBAL_PASSWORD 
