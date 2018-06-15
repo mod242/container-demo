@@ -92,7 +92,7 @@ Stopping and starting the containers does not destroy any data. However, if you 
 10. From the command line, in the same directory as the tool, run the container platform installation tool command: ```sudo ./cpit.sh```
 
 # Post-install verification
-1. After the tool completes, review the output log file, cpit_log.log.
+1. After the tool completes, review the output log file ```cpit_log.log```
 
 2. Run the command ```$docker ps``` to make sure the following docker containers are up and running:
 	- ldap
