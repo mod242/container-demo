@@ -80,7 +80,7 @@ Stopping and starting the containers does not destroy any data. However, if you 
 
 8. Review both the license agreement files: ```FNCS_License.txt``` and ```ICN_License.txt```
 
-9. Open the setProperties.sh file for editing, and update the following information:
+9. Open the ```setProperties.sh``` file for editing, and update the following information:
 	- Set the GLOBAL_PASSWORD 
 	- Set the DOWNLOAD_LOCATION paramter value to the location (full path) of the directory you created in step 2:
 	```DOWNLOAD_LOCATION=<path to downloaded container image (.tar) files>```
