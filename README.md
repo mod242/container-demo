@@ -82,7 +82,7 @@ Stopping and starting the containers does not destroy any data. However, if you 
 
 9. Open the ```setProperties.sh``` file for editing, and update the following information:
 	- Set the GLOBAL_PASSWORD 
-	- Set the DOWNLOAD_LOCATION paramter value to the location (full path) of the directory you created in step 2:
+	- Set the DOWNLOAD_LOCATION paramter value to the location (full path) of the directory you created in step 4:
 	```DOWNLOAD_LOCATION=<path to downloaded container image (.tar) files>```
 	- Set the LICENSE_ACCEPTED parameter value after reviewing both license files:
 	```LICENSE_ACCEPTED=true```
