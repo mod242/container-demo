@@ -17,8 +17,8 @@ The platform installation tool requires library files and service containers fro
 This utility contains scripts to set up an IBM Content Fundation docker environment by performing the following tasks:
 
 - Configure and start all the required containers.
-- Create the users and groups in OpenLDAP
-- Create and configure databases in DB2
+- Create the LDAP users and groups
+- Create and configure DB2 databases
 - Create a FileNet P8 Domain, object store and workflow system.
 - Create an IBM Content Navigator repository and desktop.
 
@@ -57,6 +57,10 @@ After the installation of Docker, you need to manually adjust the allocated memo
 ## 3. No data persistence
 Stopping and starting the containers does not destroy any data. However, if you delete the containers, you will lose all data in the environment. 
 
+# Supported Platforms
+The Container Platform Installation Tool is only supported on these operating systems:
+1. Ubuntu Linux 16.04.1 LTS (or higher)
+2. MacOS 10.13.5 (or higher)
 
 # Quick start
 1. On your target server, install the Docker libraries for a container platform. Procedures vary by server platform. See the following links for detailed instructions:
