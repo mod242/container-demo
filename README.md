@@ -22,13 +22,17 @@ This utility contains scripts to set up an IBM Content Fundation docker environm
 - Create a FileNet P8 Domain, object store and workflow system.
 - Create an IBM Content Navigator repository and desktop.
 
-# Preconditions
-## System requirements
-- Supported platform: 
-  - Ubuntu 16.04 and above 
-  - Mac OS 10.10.1 and above
+# Supported Platforms
+The Container Platform Installation Tool is only supported on these operating systems:
+1. Ubuntu Linux 16.04.1 LTS (or higher)
+2. MacOS 10.13.5 (or higher)
+
+# Prerequisites
+## System hardware requirements
 - Minimum configuration: 2 CPU cores, 8 GB RAM, 50GB free space
 - Network with internet access
+
+## System software requirements
 - Docker CE or EE 17.x.x and above
 - OpenLDAP 1.2.1 container from [Docker Hub](https://github.com/osixia/docker-openldap)
 - Db2 Developer C 11.1.3.3x-x86_64 container from [Docker Store](https://store.docker.com/images/db2-developer-c-edition)
@@ -57,10 +61,7 @@ After the installation of Docker, you need to manually adjust the allocated memo
 ## 3. No data persistence
 Stopping and starting the containers does not destroy any data. However, if you delete the containers, you will lose all data in the environment. 
 
-# Supported Platforms
-The Container Platform Installation Tool is only supported on these operating systems:
-1. Ubuntu Linux 16.04.1 LTS (or higher)
-2. MacOS 10.13.5 (or higher)
+
 
 # Quick start
 1. On your target server, install the Docker libraries for a container platform. Procedures vary by server platform. See the following links for detailed instructions:
@@ -93,7 +94,8 @@ The Container Platform Installation Tool is only supported on these operating sy
 	- Update all other required parameter values.
 	- Save your changes.
     
-10. From the command line, in the same directory as the tool, run the container platform installation tool command: ```sudo ./cpit.sh```
+10. From the command line, in the same directory as the tool, run the container platform installation tool command:
+```sudo ./cpit.sh```
 
 # Post-install verification
 1. After the tool completes, review the output log file ```cpit_log.log```
