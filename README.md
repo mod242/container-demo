@@ -59,7 +59,7 @@ Docker will be installed automatically if not already installed, there will be a
 After the installation of Docker, you need to manually adjust the allocated memory for Docker, by default it is 2 GB, we require it to be at least 4GB. To adjust, click the Docker icon on the menu bar, then click Preferences -> Advanced; increase the number to 4GB memory, then click Apply & Restart. For more information, check [this documentation](https://docs.docker.com/docker-for-mac/#preferences).
 
 ## 3. Special characters in password
-The global password parameter used for all LDAP and database user accounts only supports these special characters: "#" "$" "%" "." and "," . 
+The global password parameter used for all LDAP and database user accounts only supports these special characters: "#" "$" "." and "," . 
 
 ## 4. No data persistence
 Stopping and starting the containers does not destroy any data. However, if you delete the containers, you will lose all data in the environment. 
