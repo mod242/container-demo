@@ -118,9 +118,11 @@ Stopping and starting the containers does not destroy any data. However, if you 
 		- User name: P8Admin
 		- Password: GLOBAL_PASSWORD
 
-# Remove the Container Platform Installation Tool components
-To remove the software components installed by the Container PIT, run the command:
+# Remove the Container Platform Installation Tool
+1. To remove the software components installed by the Container PIT, run the command:
 ```sudo install-scripts/cleanup.sh```
+
+2. Delete the folder containing the extracted Container PIT archive 
 
 # Usage
 ## Mount volume locations
