@@ -14,7 +14,7 @@ The platform installation tool requires library files and service containers fro
     The IBM Github repository
     IBM Passport Advantage
 	
-This utility contains scripts to set up an IBM Content Fundation docker environment by performing the following tasks:
+This utility contains scripts to set up an IBM Content Foundation docker environment by performing the following tasks:
 
 - Configure and start all the required containers.
 - Create the LDAP users and groups
