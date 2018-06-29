@@ -52,11 +52,11 @@ E.g., ```id root``` will print the root id info like below:
 ```uid=0(root) gid=0(root) groups=0(root)```
 
 ## 2. Special actions required for Mac
-If you are using MacOS, manual interation is required at two points during installation. First need manual dismiss a dialog during the first luanch of Docker, second need manual adjust the allocated memory to Docker.
+If you are using MacOS, manual interaction is required at two points during installation. First you need to manually dismiss a dialog during the first launch of Docker. Second, you need to manually adjust the memory allocated to Docker.
 
-Docker will be installed automatically if not already installed, there will be a welcome dialog during first luanch and after that it requires an operating system password to get privileged access. You have to manually input the password to complete the Docker installation.
+Docker will be installed automatically if not already installed, there will be a welcome dialog during first launch and after that it requires an operating system password to get privileged access. You have to manually input the password to complete the Docker installation.
 
-After the installation of Docker, you need to manually adjust the allocated memory for Docker, by default it is 2 GB, we require it to be at least 4GB. To adjust, click the Docker icon on the menu bar, then click Preferences -> Advanced; increase the number to 4GB memory, then click Apply & Restart. For more information, check [this documentation](https://docs.docker.com/docker-for-mac/#preferences).
+After the installation of Docker, you need to manually adjust the allocated memory for Docker, by default it is 2 GB, we require it to be at least 4 GB. To adjust, click the Docker icon on the menu bar, then click Preferences -> Advanced; increase the number to 4 GB memory, then click Apply & Restart. For more information, check [this documentation](https://docs.docker.com/docker-for-mac/#preferences).
 
 ## 3. Symbol characters in password
 The global password parameter used for all LDAP and database user accounts only supports lowercase, uppercase alphabetic characters and numbers. No symbols are allowed.
