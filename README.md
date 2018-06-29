@@ -129,7 +129,7 @@ Stopping and starting the containers does not destroy any data. However, if you 
 The mount volumes specified in the setProperties.sh file will be created under the home folder of the user that is currently logged in.
 E.g., if you login as root and the mount volume for CPE is set to ```CPE_CONFIGFILES_LOC=/home/cpe_data```, then during execution it will be modified to ```CPE_CONFIGFILES_LOC=/root/cpit_data/cpe_data``` and the folder /root/cpit_data/cpe_data will be created to store all the configuration files.
 
-## Userful info
+## ECM Product info
 - [IBM Content Platform Engine Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSNW2F_5.5.0/com.ibm.p8toc.doc/welcome_p8.htm)
 - [IBM Content Navigator Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSEUEX_3.0.3/KC_ditamaps/contentnavigator.htm)
 
