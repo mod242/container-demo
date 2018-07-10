@@ -14,7 +14,7 @@ The platform installation tool requires library files and service containers fro
     The IBM Github repository
     IBM Passport Advantage
 	
-This utility contains scripts to set up an IBM Content Fundation docker environment by performing the following tasks:
+This utility contains scripts to set up an IBM Content Foundation docker environment by performing the following tasks:
 
 - Configure and start all the required containers.
 - Create the LDAP users and groups
@@ -52,11 +52,11 @@ E.g., ```id root``` will print the root id info like below:
 ```uid=0(root) gid=0(root) groups=0(root)```
 
 ## 2. Special actions required for Mac
-If you are using MacOS, manual interation is required at two points during installation. First need manual dismiss a dialog during the first luanch of Docker, second need manual adjust the allocated memory to Docker.
+If you are using MacOS, manual interaction is required at two points during installation. First you need to manually dismiss a dialog during the first launch of Docker. Second, you need to manually adjust the memory allocated to Docker.
 
-Docker will be installed automatically if not already installed, there will be a welcome dialog during first luanch and after that it requires an operating system password to get privileged access. You have to manually input the password to complete the Docker installation.
+Docker will be installed automatically if not already installed, there will be a welcome dialog during first launch and after that it requires an operating system password to get privileged access. You have to manually input the password to complete the Docker installation.
 
-After the installation of Docker, you need to manually adjust the allocated memory for Docker, by default it is 2 GB, we require it to be at least 4GB. To adjust, click the Docker icon on the menu bar, then click Preferences -> Advanced; increase the number to 4GB memory, then click Apply & Restart. For more information, check [this documentation](https://docs.docker.com/docker-for-mac/#preferences).
+After the installation of Docker, you need to manually adjust the allocated memory for Docker, by default it is 2 GB, we require it to be at least 4 GB. To adjust, click the Docker icon on the menu bar, then click Preferences -> Advanced; increase the number to 4 GB memory, then click Apply & Restart. For more information, check [this documentation](https://docs.docker.com/docker-for-mac/#preferences).
 
 ## 3. Symbol characters in password
 The global password parameter used for all LDAP and database user accounts only supports lowercase, uppercase alphabetic characters and numbers. No symbols are allowed.
@@ -129,9 +129,9 @@ Stopping and starting the containers does not destroy any data. However, if you 
 The mount volumes specified in the setProperties.sh file will be created under the home folder of the user that is currently logged in.
 E.g., if you login as root and the mount volume for CPE is set to ```CPE_CONFIGFILES_LOC=/home/cpe_data```, then during execution it will be modified to ```CPE_CONFIGFILES_LOC=/root/cpit_data/cpe_data``` and the folder /root/cpit_data/cpe_data will be created to store all the configuration files.
 
-## Userful info
+## ECM product info
 - [IBM Content Platform Engine Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSNW2F_5.5.0/com.ibm.p8toc.doc/welcome_p8.htm)
-- [IBM Content Navigator Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSEUEX_3.0.3/KC_ditamaps/contentnavigator.htm)
+- [IBM Content Navigator Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSEUEX_3.0.4/KC_ditamaps/contentnavigator.htm)
 
 # Support
 Support can be obtained at [IBM® DeveloperWorks Answers](https://developer.ibm.com/answers/)
