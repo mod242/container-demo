@@ -114,7 +114,7 @@ Stopping and starting the containers does not destroy any data. However, if you 
 		- User name: P8Admin
 		- Password: GLOBAL_PASSWORD
 	
-	- IBM Content Navigator: http://hostname:9080/navigator
+	- IBM Content Navigator: http://hostname:9081/navigator
 		- User name: P8Admin
 		- Password: GLOBAL_PASSWORD
 
