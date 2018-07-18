@@ -5,7 +5,7 @@ The all-in-one installation tool for containers installs all the required softwa
 
 In a standard container deployment, you use your existing database and directory server installations, or create new ones, to support the content management services containers. With the container platform installation tool, however, those supporting software prerequisites are installed and configured by the tool. The result is a complete container platform that is ready to use in a very short amount of time.
 
-Because this complete platform relies on open LDAP and a generic database configuration, this installation method is not appropriate for production-level use. You can use this platform installation tool to create environments for demonstration or testing purposes, or to try out the P8 Platform system in a container environment before you move to containers.
+Because this complete platform relies on OpenLDAP and a generic DB2 database configuration, this installation method is not appropriate for production-level use. You can use this platform installation tool to create environments for demonstration or testing purposes, or to try out the P8 Platform system in a container environment before you move to containers.
 
 The platform installation tool requires library files and service containers from a number of different locations. Before you begin, verify that you have valid login credentials for the following image sources:
 
@@ -54,7 +54,7 @@ E.g., ```id root``` will print the root id info like below:
 ## 2. Special actions required for Mac
 If you are using MacOS, manual interaction is required at two points during installation. First you need to manually dismiss a dialog during the first launch of Docker. Second, you need to manually adjust the memory allocated to Docker.
 
-Docker will be installed automatically if not already installed, there will be a welcome dialog during first launch and after that it requires an operating system password to get privileged access. You have to manually input the password to complete the Docker installation.
+During the Docker installation, there will be a welcome dialog during first launch and after that it requires an operating system password to get privileged access. You have to manually input the password to complete the Docker installation.
 
 After the installation of Docker, you need to manually adjust the allocated memory for Docker, by default it is 2 GB, we require it to be at least 4 GB. To adjust, click the Docker icon on the menu bar, then click Preferences -> Advanced; increase the number to 4 GB memory, then click Apply & Restart. For more information, check [this documentation](https://docs.docker.com/docker-for-mac/#preferences).
 
@@ -90,7 +90,7 @@ Stopping and starting the containers does not destroy any data. However, if you 
 
 9. Open the ```setProperties.sh``` file for editing, and update the following information:
 	- Set the GLOBAL_PASSWORD 
-	- Set the DOWNLOAD_LOCATION paramter value to the location (full path) of the directory you created in step 4:
+	- Set the DOWNLOAD_LOCATION parameter value to the location (full path) of the directory you created in step 4:
 	```DOWNLOAD_LOCATION=<path to downloaded container image (.tar) files>```
 	- Set the LICENSE_ACCEPTED parameter value after reviewing both license files:
 	```LICENSE_ACCEPTED=true```
