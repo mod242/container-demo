@@ -137,5 +137,5 @@ E.g., if you login as root and the mount volume for CPE is set to ```CPE_CONFIGF
 Support can be obtained at [IBM® DeveloperWorks Answers](https://developer.ibm.com/answers/)
 <br>
 Use the ECM-CONTAINERS tag and assistance will be provided.<br>
-*Note: Limited support available during Early Adopter Program*
+
  
