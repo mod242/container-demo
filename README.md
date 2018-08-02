@@ -129,9 +129,21 @@ Stopping and starting the containers does not destroy any data. However, if you 
 The mount volumes specified in the setProperties.sh file will be created under the home folder of the user that is currently logged in.
 E.g., if you login as root and the mount volume for CPE is set to ```CPE_CONFIGFILES_LOC=/home/cpe_data```, then during execution it will be modified to ```CPE_CONFIGFILES_LOC=/root/cpit_data/cpe_data``` and the folder /root/cpit_data/cpe_data will be created to store all the configuration files.
 
-## ECM product info
+## DB2 Tablespace Limitations
+The Db2 Developer-C Edition container has the following table space limitations:
+- User-defined SMS and DMS table spaces are not supported.
+- When creating an auto-resize table space without specifying MAXSIZE, the maximum table space size is implicitly set to the remaining capacity of the defined storage limit.
+- Altering a table space that is larger than the defined storage limit is not allowed.
+
+Due to these limiations the following exception is seen when trying to add and configure the IBM Content Search Services 5.5.1 container to the environment:
+
+	com.filenet.api.exception.EngineRuntimeException: FNRCD0009E: DB_ERROR: Database access failed with the following error: error code: Error Code -286, message 'A table space could not be found with a page size of at least "8192" that authorization ID "DB2INST1" is authorized to use.. SQLCODE=-286, SQLSTATE=42727, DRIVER=4.13.80' ObjectStore: "P8ObjectStore", SQL: ""DECLARE GLOBAL TEMPORARY TABLE SESSION.TMPe8a21922cf5e583 (queried_object_id varchar(16) for bit data , rank double , summary vargraphic(1024) , index_id varchar(16) for bit data , continue_from vargraphic(36) , highlight_blob varchar(2050) for bit data , seqnum integer ) ON COMMIT PRESERVE ROWS "" 
+
+# ECM product info
 - [IBM Content Platform Engine Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSNW2F_5.5.0/com.ibm.p8toc.doc/welcome_p8.htm)
 - [IBM Content Navigator Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSEUEX_3.0.4/KC_ditamaps/contentnavigator.htm)
+
+
 
 # Support
 Support can be obtained at [IBM® DeveloperWorks Answers](https://developer.ibm.com/answers/)
