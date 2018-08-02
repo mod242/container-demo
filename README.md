@@ -129,6 +129,7 @@ Stopping and starting the containers does not destroy any data. However, if you 
 The mount volumes specified in the setProperties.sh file will be created under the home folder of the user that is currently logged in.
 E.g., if you login as root and the mount volume for CPE is set to ```CPE_CONFIGFILES_LOC=/home/cpe_data```, then during execution it will be modified to ```CPE_CONFIGFILES_LOC=/root/cpit_data/cpe_data``` and the folder /root/cpit_data/cpe_data will be created to store all the configuration files.
 
+# Known Issues
 ## DB2 Tablespace Limitations
 The Db2 Developer-C Edition container has the following table space limitations:
 - User-defined SMS and DMS table spaces are not supported.
