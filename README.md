@@ -140,7 +140,12 @@ The Db2 Developer-C Edition container has the following table space limitations:
 
 Due to these limiations the following exception is seen when trying to add and configure the IBM Content Search Services 5.5.1 container to the environment:
 
-	com.filenet.api.exception.EngineRuntimeException: FNRCD0009E: DB_ERROR: Database access failed with the following error: Error Code -286, message 'A table space could not be found with a page size of at least "8192" that authorization ID "DB2INST1" is authorized to use.. SQLCODE=-286, SQLSTATE=42727, DRIVER=4.13.80' ObjectStore: "P8ObjectStore", SQL: ""DECLARE GLOBAL TEMPORARY TABLE SESSION.TMPe8a21922cf5e583 (queried_object_id varchar(16) for bit data , rank double , summary vargraphic(1024) , index_id varchar(16) for bit data , continue_from vargraphic(36) , highlight_blob varchar(2050) for bit data , seqnum integer ) ON COMMIT PRESERVE ROWS "" 
+	com.filenet.api.exception.EngineRuntimeException: FNRCD0009E: DB_ERROR: Database access failed with the following error: 
+	Error Code -286, message 'A table space could not be found with a page size of at least "8192" that authorization ID
+	"DB2INST1" is authorized to use.. SQLCODE=-286, SQLSTATE=42727, DRIVER=4.13.80' ObjectStore: "P8ObjectStore", 
+	SQL: ""DECLARE GLOBAL TEMPORARY TABLE SESSION.TMPe8a21922cf5e583 (queried_object_id varchar(16) for bit data , 
+	rank double , summary vargraphic(1024) , index_id varchar(16) for bit data , continue_from vargraphic(36) ,
+	highlight_blob varchar(2050) for bit data , seqnum integer ) ON COMMIT PRESERVE ROWS "" 
 
 ## DB2 Container initialization exception
 The Db2 Developer-C Edition container - db2_developer_c:11.1.3.3b-x86_64 - shows the following exception in the container logs:<br> 
