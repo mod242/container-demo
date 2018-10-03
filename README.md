@@ -70,7 +70,7 @@ Stopping and starting the containers does not destroy any data. However, if you 
 1. On your target server, install the Docker libraries for a container platform. Procedures vary by server platform. See the following links for detailed instructions:
 
 	- [Install Docker CE For Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
-	- [Installa Docker for Mac](https://docs.docker.com/docker-for-mac/install/)
+	- [Install Docker for Mac](https://docs.docker.com/docker-for-mac/install/)
 
 2. Download the OpenLDAP container from the [Docker hub](https://hub.docker.com/r/osixia/openldap/)
 
