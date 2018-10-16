@@ -70,7 +70,7 @@ Stopping and starting the containers does not destroy any data. However, if you 
 1. On your target server, install the Docker libraries for a container platform. Procedures vary by server platform. See the following links for detailed instructions:
 
 	- [Install Docker CE For Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
-	- [Installa Docker for Mac](https://docs.docker.com/docker-for-mac/install/)
+	- [Install Docker for Mac](https://docs.docker.com/docker-for-mac/install/)
 
 2. Download the OpenLDAP container from the [Docker hub](https://hub.docker.com/r/osixia/openldap/)
 
@@ -90,14 +90,16 @@ Stopping and starting the containers does not destroy any data. However, if you 
 
 9. Open the ```setProperties.sh``` file for editing, and update the following information:
 	- Set the GLOBAL_PASSWORD 
-	- Set the DOWNLOAD_LOCATION parameter value to the location (full path) of the directory you created in step 4:
+	- Set the DOWNLOAD_LOCATION parameter value to the location (full path) of the directory you created in step 4:<br>
 	```DOWNLOAD_LOCATION=<path to downloaded container image (.tar) files>```
-	- Set the LICENSE_ACCEPTED parameter value after reviewing both license files:
+	- Set the LICENSE_ACCEPTED parameter value after reviewing both license files:<br>
 	```LICENSE_ACCEPTED=true```
-	- Update all other required parameter values.
+	- Update the DB2 and OpenLDAP container image names and tags. To obtain this information use the command:<br>
+	```sudo docker images```
+	- Update other required parameter values.
 	- Save your changes.
     
-10. From the command line, in the same directory as the tool, run the container platform installation tool command:
+10. From the command line, in the same directory as the tool, run the container platform installation tool command:<br>
 ```sudo ./cpit.sh```
 
 # Post-install verification
@@ -119,7 +121,7 @@ Stopping and starting the containers does not destroy any data. However, if you 
 		- Password: GLOBAL_PASSWORD
 
 # Remove the Container Platform Installation Tool
-1. To remove the software components installed by the Container PIT, run the command:
+1. To remove the software components installed by the Container PIT, run the command:<br>
 ```sudo install-scripts/cleanup.sh```
 
 2. Delete the folder containing the extracted Container PIT archive 
@@ -138,7 +140,19 @@ The Db2 Developer-C Edition container has the following table space limitations:
 
 Due to these limiations the following exception is seen when trying to add and configure the IBM Content Search Services 5.5.1 container to the environment:
 
-	com.filenet.api.exception.EngineRuntimeException: FNRCD0009E: DB_ERROR: Database access failed with the following error: Error Code -286, message 'A table space could not be found with a page size of at least "8192" that authorization ID "DB2INST1" is authorized to use.. SQLCODE=-286, SQLSTATE=42727, DRIVER=4.13.80' ObjectStore: "P8ObjectStore", SQL: ""DECLARE GLOBAL TEMPORARY TABLE SESSION.TMPe8a21922cf5e583 (queried_object_id varchar(16) for bit data , rank double , summary vargraphic(1024) , index_id varchar(16) for bit data , continue_from vargraphic(36) , highlight_blob varchar(2050) for bit data , seqnum integer ) ON COMMIT PRESERVE ROWS "" 
+	com.filenet.api.exception.EngineRuntimeException: FNRCD0009E: DB_ERROR: Database access failed with the following error: 
+	Error Code -286, message 'A table space could not be found with a page size of at least "8192" that authorization ID
+	"DB2INST1" is authorized to use.. SQLCODE=-286, SQLSTATE=42727, DRIVER=4.13.80' ObjectStore: "P8ObjectStore", 
+	SQL: ""DECLARE GLOBAL TEMPORARY TABLE SESSION.TMPe8a21922cf5e583 (queried_object_id varchar(16) for bit data , 
+	rank double , summary vargraphic(1024) , index_id varchar(16) for bit data , continue_from vargraphic(36) ,
+	highlight_blob varchar(2050) for bit data , seqnum integer ) ON COMMIT PRESERVE ROWS "" 
+
+## DB2 Container initialization exception
+The Db2 Developer-C Edition container - db2_developer_c:11.1.3.3b-x86_64 - shows the following exception in the container logs:<br> 
+	`(*) Cataloging existing databases`<br>
+	**`ls: cannot access /database/data/db2inst1/NODE0000: No such file or directory`**<br>
+	`(*) Applying Db2 license ...`
+<br>This exception can be ignored as it does not affect the funtionality of the DB2, CPE or Content Navigator containers. 
 
 # ECM product info
 - [IBM Content Platform Engine Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSNW2F_5.5.0/com.ibm.p8toc.doc/welcome_p8.htm)
