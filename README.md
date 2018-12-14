@@ -33,10 +33,10 @@ The Container Platform Installation Tool is only supported on these operating sy
 - Network with internet access
 
 ## System software requirements
-- Docker CE or EE 17.x.x and above
-- OpenLDAP 1.2.1 container from [Docker Hub](https://hub.docker.com/r/osixia/openldap/)
+- Docker CE or EE 18.x.x and above
+- OpenLDAP 1.2.2 container from [Docker Hub](https://hub.docker.com/r/osixia/openldap/)
 - Db2 Developer C 11.1.3.3x-x86_64 container from [Docker Store](https://store.docker.com/images/db2-developer-c-edition)
-- IBM Content Platform Engine and IBM Content Navigator container images from [IBM Passport Advantage](https://www-01.ibm.com/software/passportadvantage/pacustomers.html)
+- IBM Content Platform Engine and IBM Content Navigator container images from [IBM Passport Advantage](https://www-01.ibm.com/support/docview.wss?uid=ibm10741447)
 - ECM Container PIT installer from [GitHub](https://github.com/ibm-ecm/container-demo)
 
 # Limitations
@@ -91,16 +91,19 @@ Stopping and starting the containers does not destroy any data. However, if you 
 9. Open the ```setProperties.sh``` file for editing, and update the following information:
 	- Set the GLOBAL_PASSWORD 
 	- Set the DOWNLOAD_LOCATION parameter value to the location (full path) of the directory you created in step 4:<br>
-	```DOWNLOAD_LOCATION=<path to downloaded container image (.tar) files>```
+	```DOWNLOAD_LOCATION=<path to downloaded container image (.tgz) files>```
 	- Set the LICENSE_ACCEPTED parameter value after reviewing both license files:<br>
 	```LICENSE_ACCEPTED=true```
 	- Update the DB2 and OpenLDAP container image names and tags. To obtain this information use the command:<br>
 	```sudo docker images```
-	- Update other required parameter values.
+	- Update other required parameter values if needed.
 	- Save your changes.
     
-10. From the command line, in the same directory as the tool, run the container platform installation tool command:<br>
-```sudo ./cpit.sh```
+10. From the command line, in the same directory as the tool:<br>
+        - Add execute permissions to the executable script file:<br>
+	```sudo chmod u+x ./cpit.sh```<br>
+        - Run the container platform installation tool command:<br>
+        ```sudo ./cpit.sh```
 
 # Post-install verification
 1. After the tool completes, review the output log file ```cpit_log.log```
