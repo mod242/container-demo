@@ -32,6 +32,8 @@ The Container Platform Installation Tool is only supported on these operating sy
 - Minimum configuration: 2 CPU cores, 8 GB RAM, 50GB free space
 - Network with internet access
 
+**NOTE**: Container PIT scripts cannot be used to upgrade from earlier versions of the Content Platform Engine and Content Navigator containers. **A clean environment is required to run the Container PIT scripts.**
+
 ## System software requirements
 - Docker CE or EE 18.x.x and above
 - OpenLDAP 1.2.2 container from [Docker Hub](https://hub.docker.com/r/osixia/openldap/)
