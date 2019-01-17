@@ -32,14 +32,14 @@ The Container Platform Installation Tool is only supported on these operating sy
 - Minimum configuration: 2 CPU cores, 8 GB RAM, 50GB free space
 - Network with internet access
 
-**NOTE**: Container PIT scripts cannot be used to upgrade from earlier versions of the Content Platform Engine and Content Navigator containers. **A clean environment is required to run the Container PIT scripts.**
-
 ## System software requirements
 - Docker CE or EE 18.x.x and above
 - OpenLDAP 1.2.2 container from [Docker Hub](https://hub.docker.com/r/osixia/openldap/)
 - Db2 Developer C 11.1.3.3x-x86_64 container from [Docker Store](https://store.docker.com/images/db2-developer-c-edition)
 - IBM Content Platform Engine and IBM Content Navigator container images from [IBM Passport Advantage](https://www-01.ibm.com/support/docview.wss?uid=ibm10741447)
 - ECM Container PIT installer from [GitHub](https://github.com/ibm-ecm/container-demo)
+
+**NOTE**: Container PIT scripts cannot be used to upgrade from earlier versions of the Content Platform Engine and Content Navigator containers. **A clean environment is required to run the Container PIT scripts.**
 
 # Limitations
 ## 1. Special notice for systems with multiple accounts
