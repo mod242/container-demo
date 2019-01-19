@@ -36,7 +36,7 @@ The Container Platform Installation Tool is only supported on these operating sy
 - Docker CE or EE 18.x.x and above
 - OpenLDAP 1.2.2 container from [Docker Hub](https://hub.docker.com/r/osixia/openldap/)
 - Db2 Developer C 11.1.3.3x-x86_64 container from [Docker Store](https://store.docker.com/images/db2-developer-c-edition)
-- IBM Content Platform Engine and IBM Content Navigator container images from [IBM Passport Advantage](https://www-01.ibm.com/support/docview.wss?uid=ibm10741447)
+- IBM Content Platform Engine v5.5.2 and IBM Content Navigator v3.0.5 container images from [IBM Passport Advantage](https://www-01.ibm.com/support/docview.wss?uid=ibm10741447)
 - ECM Container PIT installer from [GitHub](https://github.com/ibm-ecm/container-demo)
 
 **NOTE**: Container PIT scripts cannot be used to upgrade from earlier versions of the Content Platform Engine and Content Navigator containers. **A clean environment is required to run the Container PIT scripts.**
