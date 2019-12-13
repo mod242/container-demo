@@ -143,20 +143,19 @@ The Db2 docker container supports 3 Db2 editions - Community, Standard, and Adva
 
 You can change the license for the docker container by executing these commands:
 
-1. Copy license key file to container
+1. Copy license key file to container<br>
 ```docker cp <NEW LICENSE KEY> db2:/database/config```
 
 where the new license activation key is the *.lic file 
 
-2. Add license key 
+2. Add license key<br> 
 ```docker exec -ti db2 bash -c "/opt/ibm/db2/V11.5/adm/db2licm -r db2dec && /opt/ibm/db2/V11.5/adm/db2licm -a /database/config/<NEW LICENSE KEY>"```
 
 where the new license activation key is the *.lic file, which was copied into the container filesystem in the earlier step
 
 The container also contains a Db2 90-day trial license, which when applied removes the limitations of the CPU/Memory/Database size and activates a 90-day trial. The license is /var/db2/db2trial.lic and is available on the container filesystem. 
 
-To apply this license, run the following command:
-
+To apply this license, run the following command:<br>
 ```docker exec -ti db2 bash -c "/opt/ibm/db2/V11.5/adm/db2licm -r db2dec && /opt/ibm/db2/V11.5/adm/db2licm -a /var/db2/db2trial.lic"```
 
 # Known Issues
