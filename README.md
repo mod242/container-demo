@@ -9,8 +9,7 @@ Because this complete platform relies on OpenLDAP and a generic DB2 database con
 
 The platform installation tool requires library files and service containers from a number of different locations. Before you begin, verify that you have valid login credentials for the following image sources:
 
-    The Docker hub
-    The Docker store
+    The Docker Hub
     The IBM Github repository
     IBM Passport Advantage
 	
@@ -34,9 +33,9 @@ The Container Platform Installation Tool is only supported on these operating sy
 
 ## System software requirements
 - Docker CE or EE 18.x.x and above
-- OpenLDAP 1.2.5 container from [Docker Hub](https://hub.docker.com/r/osixia/openldap/)
-- Db2 Developer C 11.1.4.4-x86_64 container from [Docker Store](https://store.docker.com/images/db2-developer-c-edition)
-- IBM Content Platform Engine v5.5.3 and IBM Content Navigator v3.0.6 container images from [IBM Passport Advantage](https://www-01.ibm.com/support/docview.wss?uid=ibm10741447)
+- OpenLDAP 1.3.0 container from [Docker Hub](https://hub.docker.com/r/osixia/openldap/)
+- IBM Db2 11.5.0.0a container from [Docker Hub](https://hub.docker.com/r/ibmcom/db2)
+- IBM Content Platform Engine v5.5.4 and IBM Content Navigator v3.0.7 container images from [IBM Passport Advantage](https://www-01.ibm.com/support/docview.wss?uid=ibm10741447)
 - ECM Container PIT installer from [GitHub](https://github.com/ibm-ecm/container-demo)
 
 **NOTE**: Container PIT scripts cannot be used to upgrade from earlier versions of the Content Platform Engine and Content Navigator containers. **A clean environment is required to run the Container PIT scripts.**
@@ -74,15 +73,17 @@ Stopping and starting the containers does not destroy any data. However, if you 
 	- [Install Docker CE For Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 	- [Install Docker for Mac](https://docs.docker.com/docker-for-mac/install/)
 
-2. Download the OpenLDAP container from the [Docker hub](https://hub.docker.com/r/osixia/openldap/)
+2. Download the OpenLDAP container from the [Docker Hub](https://hub.docker.com/r/osixia/openldap/)
 
-3. Download the DB2 V11.1.4.4 Developer-C Edition container from the [Docker Store](https://store.docker.com/images/db2-developer-c-edition)
+3. Download the IBM Db2 V11.5.0.0a container from the [Docker Hub](https://hub.docker.com/r/ibmcom/db2)
+
+**NOTE**: The Db2 container licensing has changed. Please refer to the **Db2 License** section below for details.<br>
 
 4. Create a directory on your target server for the ECM container downloads.
 
 5. Download the following containers from IBM Passport Advantage and save them to your download directory.
-	- IBM Content Platform Engine container
-	- IBM Content Navigator container
+	- IBM Content Platform Engine V5.5.4 container (Part Number: CC4FGML)
+	- IBM Content Navigator V3.0.7 container (Part Number: CC4EXML)
 
 6. Download the container platform installation tool from the [Github repository](https://github.com/ibm-ecm/container-demo) and save it to your download directory. 
     
@@ -135,6 +136,28 @@ Stopping and starting the containers does not destroy any data. However, if you 
 ## Mount volume locations
 The mount volumes specified in the setProperties.sh file will be created under the home folder of the user that is currently logged in.
 E.g., if you login as root and the mount volume for CPE is set to ```CPE_CONFIGFILES_LOC=/home/cpe_data```, then during execution it will be modified to ```CPE_CONFIGFILES_LOC=/root/cpit_data/cpe_data``` and the folder /root/cpit_data/cpe_data will be created to store all the configuration files.
+
+# Db2 License
+## Updating the license for Db2
+The Db2 docker container supports 3 Db2 editions - Community, Standard, and Advanced. It is licensed with a Community license, which has limitations on CPU, memory, and database size (See https://www.ibm.com/support/knowledgecenter/en/SSEPGG_11.5.0/com.ibm.db2.luw.qb.server.doc/doc/r0006748.html for details).
+
+You can change the license for the docker container by executing these commands:
+
+1. Copy license key file to container
+```docker cp <NEW LICENSE KEY> db2:/database/config```
+
+where the new license activation key is the *.lic file 
+
+2. Add license key 
+```docker exec -ti db2 bash -c "/opt/ibm/db2/V11.5/adm/db2licm -r db2dec && /opt/ibm/db2/V11.5/adm/db2licm -a /database/config/<NEW LICENSE KEY>"```
+
+where the new license activation key is the *.lic file, which was copied into the container filesystem in the earlier step
+
+The container also contains a Db2 90-day trial license, which when applied removes the limitations of the CPU/Memory/Database size and activates a 90-day trial. The license is /var/db2/db2trial.lic and is available on the container filesystem. 
+
+To apply this license, run the following command:
+
+```docker exec -ti db2 bash -c "/opt/ibm/db2/V11.5/adm/db2licm -r db2dec && /opt/ibm/db2/V11.5/adm/db2licm -a /var/db2/db2trial.lic"```
 
 # Known Issues
 ## DB2 Tablespace Limitations
