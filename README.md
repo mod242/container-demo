@@ -77,7 +77,7 @@ Stopping and starting the containers does not destroy any data. However, if you 
 
 3. Download the IBM Db2 V11.5.0.0a container from the [Docker Hub](https://hub.docker.com/r/ibmcom/db2)
 
-**NOTE**: The Db2 container licensing has changed. Please refer to the **Db2 License** section below for details.<br>
+**NOTE**: The Db2 container licensing has changed. Please refer to the [**Db2 License**](README.md#Db2-License) section below for details.<br>
 
 4. Create a directory on your target server for the ECM container downloads.
 
