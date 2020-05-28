@@ -33,7 +33,7 @@ The Container Platform Installation Tool is only supported on these operating sy
 
 ## System software requirements
 - Docker CE or EE 18.x.x and above
-- OpenLDAP 1.3.0 container from [Docker Hub](https://hub.docker.com/r/osixia/openldap/)
+- OpenLDAP 1.3.0 container from [Docker Hub](https://hub.docker.com/r/osixia/openldap/tags)
 - IBM Db2 11.5.0.0a container from [Docker Hub](https://hub.docker.com/r/ibmcom/db2)
 - IBM Content Platform Engine v5.5.4 and IBM Content Navigator v3.0.7 container images from [IBM Passport Advantage](https://www-01.ibm.com/support/docview.wss?uid=ibm10741447)
 - ECM Container PIT installer from [GitHub](https://github.com/ibm-ecm/container-demo)
