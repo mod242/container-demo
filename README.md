@@ -1,5 +1,19 @@
 # ECM Container Platform Installation Tool 
 
+- [Overview](README.md#Overview)
+- [Supported Platforms](README.md#Supported-Platforms)
+- [Prerequisites](README.md#Prerequisites)
+- [Limitations](README.md#Limitations)
+- [Quick start](README.md#Quick-start)
+- [Post-install verification](README.md#Post-install-verification)
+- [Remove the Container Platform Installation Tool](README.md#Remove-the-Container-Platform-Installation-Tool)
+- [Troubleshooting](README.md#Troubleshooting)
+- [Storage](README.md#Storage)
+- [Db2 License](README.md#Db2-License)
+- [Known Issues](README.md#Known-Issues)
+- [ECM product info](README.md#ECM-product-info)
+- [Support](README.md#Support)
+
 # Overview
 The all-in-one installation tool for containers installs all the required software and configuration information needed to deploy FileNet P8 Platform in a container environment. This tool quickly creates functional P8 Platform environments for demo or non-production purposes only.
 
@@ -23,8 +37,8 @@ This utility contains scripts to set up an IBM Content Foundation docker environ
 
 # Supported Platforms
 The Container Platform Installation Tool is only supported on these operating systems:
-1. Ubuntu Linux 16.04.1 LTS (or higher)
-2. MacOS 10.13.5 (or higher)
+- Ubuntu Linux 18.04 or 20.04
+- MacOS 10.15.x
 
 # Prerequisites
 ## System hardware requirements
@@ -32,10 +46,10 @@ The Container Platform Installation Tool is only supported on these operating sy
 - Network with internet access
 
 ## System software requirements
-- Docker CE or EE 18.x.x and above
-- OpenLDAP 1.3.0 container from [Docker Hub](https://hub.docker.com/r/osixia/openldap/tags)
+- Docker CE or EE 19.03.x
+- OpenLDAP 1.3.0 container from [Docker Hub](https://hub.docker.com/r/osixia/openldap/)
 - IBM Db2 11.5.0.0a container from [Docker Hub](https://hub.docker.com/r/ibmcom/db2)
-- IBM Content Platform Engine v5.5.4 and IBM Content Navigator v3.0.7 container images from [IBM Passport Advantage](https://www-01.ibm.com/support/docview.wss?uid=ibm10741447)
+- IBM Content Platform Engine v5.5.5 and IBM Content Navigator v3.0.8 container images from [IBM Passport Advantage](https://www.ibm.com/support/pages/download-ibm-filenet-content-manager-version-554)
 - ECM Container PIT installer from [GitHub](https://github.com/ibm-ecm/container-demo)
 
 **NOTE**: Container PIT scripts cannot be used to upgrade from earlier versions of the Content Platform Engine and Content Navigator containers. **A clean environment is required to run the Container PIT scripts.**
@@ -82,8 +96,8 @@ Stopping and starting the containers does not destroy any data. However, if you 
 4. Create a directory on your target server for the ECM container downloads.
 
 5. Download the following containers from IBM Passport Advantage and save them to your download directory.
-	- IBM Content Platform Engine V5.5.4 container (Part Number: CC4FGML)
-	- IBM Content Navigator V3.0.7 container (Part Number: CC4EXML)
+	- IBM Content Platform Engine V5.5.5 container (Part Number: CC6U9ML)
+	- IBM Content Navigator V3.0.8 container (Part Number: CC6V6ML)
 
 6. Download the container platform installation tool from the [Github repository](https://github.com/ibm-ecm/container-demo) and save it to your download directory. 
     
@@ -97,7 +111,8 @@ Stopping and starting the containers does not destroy any data. However, if you 
 	```DOWNLOAD_LOCATION=<path to downloaded container image (.tgz) files>```
 	- Set the LICENSE_ACCEPTED parameter value after reviewing both license files:<br>
 	```LICENSE_ACCEPTED=true```
-	- Update the DB2 and OpenLDAP container image names and tags. To obtain this information use the command:<br>
+	- Update the DB2 and OpenLDAP container image names and tags.<br> 
+	To obtain this information use the command:<br>
 	```sudo docker images```
 	- Update other required parameter values if needed.
 	- Save your changes.
@@ -111,7 +126,7 @@ Stopping and starting the containers does not destroy any data. However, if you 
 # Post-install verification
 1. After the tool completes, review the output log file ```cpit_log.log```
 
-2. Run the command ```$docker ps``` to make sure the following docker containers are up and running:
+2. Run the command ```docker ps``` to make sure the following docker containers are up and running:
 	- ldap
 	- db2
 	- cpe
@@ -132,14 +147,23 @@ Stopping and starting the containers does not destroy any data. However, if you 
 
 2. Delete the folder containing the extracted Container PIT archive 
 
-# Usage
+# Troubleshooting
+## Hostname resolution
+The Content Navigator initialization scripts will fail if the hostname cannot be resolved.<br>
+To resolve this issue do the following:<br>
+1. Determine the hostname using the command:<br>
+```uname -n```<br>
+2. Edit the file ```/etc/hosts``` and add the hostname as follows:<br>
+```127.0.0.1 hostname```
+
+# Storage
 ## Mount volume locations
-The mount volumes specified in the setProperties.sh file will be created under the home folder of the user that is currently logged in.
-E.g., if you login as root and the mount volume for CPE is set to ```CPE_CONFIGFILES_LOC=/home/cpe_data```, then during execution it will be modified to ```CPE_CONFIGFILES_LOC=/root/cpit_data/cpe_data``` and the folder /root/cpit_data/cpe_data will be created to store all the configuration files.
+The mount volumes specified in the ```setProperties.sh``` file will be created under the home folder of the user that is currently logged in.<br>
+E.g., if you login as root and the mount volume for CPE is set to ```CPE_CONFIGFILES_LOC=~/cpit_data/cpe_data```, then during execution it will be modified to ```CPE_CONFIGFILES_LOC=/root/cpit_data/cpe_data``` and the folder ```/root/cpit_data/cpe_data``` will be created to store all the configuration files.
 
 # Db2 License
 ## Updating the license for Db2
-The Db2 docker container supports 3 Db2 editions - Community, Standard, and Advanced. It is licensed with a Community license, which has limitations on CPU, memory, and database size (See https://www.ibm.com/support/knowledgecenter/en/SSEPGG_11.5.0/com.ibm.db2.luw.qb.server.doc/doc/r0006748.html for details).
+The Db2 docker container supports 3 Db2 editions - Community, Standard, and Advanced. It is licensed with a Community license, which has limitations on CPU, memory, and database size. More details are available here: https://www.ibm.com/support/knowledgecenter/en/SSEPGG_11.5.0/com.ibm.db2.luw.qb.server.doc/doc/r0006748.html
 
 You can change the license for the docker container by executing these commands:
 
@@ -165,17 +189,12 @@ The Db2 Developer-C Edition container has the following table space limitations:
 - When creating an auto-resize table space without specifying MAXSIZE, the maximum table space size is implicitly set to the remaining capacity of the defined storage limit.
 - Altering a table space that is larger than the defined storage limit is not allowed.
 
-Due to these limiations the following exception is seen when trying to add and configure the IBM Content Search Services 5.5.1 container to the environment:
+Due to these limiations the following exception is seen when trying to add and configure the IBM Content Search Services container to the environment:
 
-	com.filenet.api.exception.EngineRuntimeException: FNRCD0009E: DB_ERROR: Database access failed with the following error: 
-	Error Code -286, message 'A table space could not be found with a page size of at least "8192" that authorization ID
-	"DB2INST1" is authorized to use.. SQLCODE=-286, SQLSTATE=42727, DRIVER=4.13.80' ObjectStore: "P8ObjectStore", 
-	SQL: ""DECLARE GLOBAL TEMPORARY TABLE SESSION.TMPe8a21922cf5e583 (queried_object_id varchar(16) for bit data , 
-	rank double , summary vargraphic(1024) , index_id varchar(16) for bit data , continue_from vargraphic(36) ,
-	highlight_blob varchar(2050) for bit data , seqnum integer ) ON COMMIT PRESERVE ROWS "" 
+```com.filenet.api.exception.EngineRuntimeException: FNRCD0009E: DB_ERROR: Database access failed with the following error: Error Code -286, message 'A table space could not be found with a page size of at least "8192" that authorization ID "DB2INST1" is authorized to use.. SQLCODE=-286, SQLSTATE=42727, DRIVER=4.13.80' ObjectStore: "P8ObjectStore", SQL: ""DECLARE GLOBAL TEMPORARY TABLE SESSION.TMPe8a21922cf5e583 (queried_object_id varchar(16) for bit data , rank double , summary vargraphic(1024) , index_id varchar(16) for bit data , continue_from vargraphic(36) , highlight_blob varchar(2050) for bit data , seqnum integer ) ON COMMIT PRESERVE ROWS ""```
 
 ## DB2 Container initialization exception
-The Db2 Developer-C Edition container - db2_developer_c:11.1.3.3b-x86_64 - shows the following exception in the container logs:<br> 
+The Db2 container - shows the following exception in the container logs:<br> 
 	`(*) Cataloging existing databases`<br>
 	**`ls: cannot access /database/data/db2inst1/NODE0000: No such file or directory`**<br>
 	`(*) Applying Db2 license ...`
@@ -183,13 +202,8 @@ The Db2 Developer-C Edition container - db2_developer_c:11.1.3.3b-x86_64 - shows
 
 # ECM product info
 - [IBM Content Platform Engine Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSNW2F_5.5.0/com.ibm.p8toc.doc/welcome_p8.htm)
-- [IBM Content Navigator Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSEUEX_3.0.4/KC_ditamaps/contentnavigator.htm)
-
-
+- [IBM Content Navigator Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSEUEX_3.0.7/KC_ditamaps/contentnavigator.htm)
 
 # Support
-Support can be obtained at [IBM® DeveloperWorks Answers](https://developer.ibm.com/answers/)
-<br>
-Use the ECM-CONTAINERS tag and assistance will be provided.<br>
-
- 
+Support can be obtained at [IBM® Support Forums](https://www.ibm.com/mysupport/s/forumshome?language=en_US)<br>
+Use the tag #FileNetContentManager<br>
