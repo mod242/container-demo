@@ -7,7 +7,7 @@ In a standard container deployment, you use your existing database and directory
 
 Because this complete platform relies on openLDAP and a generic database configuration, this installation method is not appropriate for production-level use. You can use this platform installation tool to create environments for demonstration or testing purposes, or to try out the P8 Platform system in a container environment before you move to containers.
 
-This utility contains scripts to set up an IBM Content Foundation docker environment by performing the following tasks::
+This utility contains scripts to set up an IBM FileNet Content Manager docker environment by performing the following tasks::
 
 - Download the following containers from the internal IBM repository:<br>
 	- OpenLDAP v1.3.0
