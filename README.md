@@ -167,7 +167,7 @@ To resolve this issue do the following:<br>
 
 ## Db2 port change after restart
 When using the Db2 v11.5.6.0 container, if the container is restarted, the database ports are reset to the 50000 range. This causes errors with the CPE and Navigator database connections identified by exceptions when trying to access the Object Store in ACCE or making any updates to the GCD.<br>
-The workaround for this is to manually switch the Db2 database ports to the original values. Use the script - ```Update_Db2_Ports.sh``` provided in the ```Supprting Scripts``` folder to update the Db2 ports.<br> 
+The workaround for this is to manually switch the Db2 database ports to the original values. Use the script [Update_Db2_Ports.sh](https://github.com/ibm-ecm/container-demo/blob/master/Supporting%20Scripts/Update_Db2_Ports.sh) provided in the ```Supprting Scripts``` folder to update the Db2 ports.<br> 
 To run the script:
 - Download the script to the folder specified in the `DOWNLOAD_LOCATION` parameter<br>
 - Add execute permissions to the script file:<br>
