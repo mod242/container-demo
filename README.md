@@ -228,5 +228,5 @@ The Db2 container - shows the following exceptions in the container logs:<br>
 - [IBM Content Navigator Knowledge Center](https://www.ibm.com/docs/en/content-navigator/3.0.x)
 
 # Support
-Support can be obtained at [IBM® Support Forums](https://www.ibm.com/mysupport/s/forumshome?language=en_US)<br>
+Support is ONLY via the [IBM® Support Forums](https://www.ibm.com/mysupport/s/forumshome?language=en_US). Please do not create a Support Case.<br>
 Use the tag #FileNetContentManager<br>
