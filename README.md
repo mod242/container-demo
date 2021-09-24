@@ -182,11 +182,11 @@ To run the script:
 ## Db2 user password expiry
 The default password expiry period for Db2 database user ```db2inst1``` is set to 90 days. If you intend to keep the demo environment running for more than 3 months, you need to change the password expiry settings using these command:<br>
 - Set the password expire date and period:<br>
-    ```docker exec -it db2 bash -c "chage -E -1 -M -1 db2inst1"```
+    ```docker exec -it db2 bash -c "chage -E -1 -M -1 db2inst1"```<br>
 - Verify the settings:<br>
-    ```docker exec -it db2 bash -c "chage -l db2inst1"```
+    ```docker exec -it db2 bash -c "chage -l db2inst1"```<br>
     Look for these lines in the response:<br>
-    ```Password expires                                        : never```
+    ```Password expires                                        : never```<br>
     ```Maximum number of days between password change          : -1```	
 
 # Storage
