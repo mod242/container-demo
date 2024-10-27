@@ -156,6 +156,9 @@ Stopping and starting the containers does not destroy any data. However, if you 
 
 2. Delete the folder containing the extracted Container PIT archive
 
+# Roadmap
+I have an new Version built already, based on Postgresql as DB System. Right now I am in Clarification with IBM, whether I am allowed to publish it here.
+
 # Troubleshooting
 ## Hostname resolution
 The Content Navigator initialization scripts will fail if the hostname cannot be resolved.<br>
