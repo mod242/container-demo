@@ -1,0 +1,7 @@
+<server>
+ 	<transaction totalTranLifetimeTimeout="300s" />
+
+	<library id="PostgreSQL">
+		<fileset dir="${server.config.dir}/configDropins/overrides" includes="postgresql-42.7.2.jar"/>
+	</library>	
+</server>

@@ -1,0 +1,13 @@
+<server>
+    <dataSource id="FNGCDDS" jndiName="FNGCDDS" isolationLevel="TRANSACTION_READ_COMMITTED" type="javax.sql.ConnectionPoolDataSource">
+        <jdbcDriver javax.sql.ConnectionPoolDataSource="org.postgresql.ds.PGConnectionPoolDataSource" libraryRef="PostgreSQL" />
+        <properties databaseName="gcddb" serverName="localhost" portNumber="5432" user="ceuser" password="FileNet" ssl="false" resultSetHoldability="HOLD_CURSORS_OVER_COMMIT" />
+        <connectionManager minPoolSize="0" maxPoolSize="10" maxIdleTime="1m" reapTime="2m" enableSharingForDirectLookups="false" />
+    </dataSource>
+
+    <dataSource id="FNGCDDSXA" jndiName="FNGCDDSXA" isolationLevel="TRANSACTION_READ_COMMITTED" type="javax.sql.XADataSource">
+        <jdbcDriver javax.sql.XADataSource="org.postgresql.xa.PGXADataSource" libraryRef="PostgreSQL" />
+        <properties databaseName="gcddb" serverName="localhost" portNumber="5432" user="ceuser" password="FileNet" ssl="false" />
+        <connectionManager minPoolSize="0" maxPoolSize="10" maxIdleTime="1m" reapTime="2m" enableSharingForDirectLookups="true" />
+    </dataSource>
+</server>
