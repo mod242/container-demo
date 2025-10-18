@@ -65,9 +65,11 @@ if [[ "Linux" = "$os_type" ]]; then
 		number_of_cpu=`grep -c 'model name' /proc/cpuinfo`
 		free=`/usr/bin/free -h | /bin/sed 's/Mem:   /Memory:/g' | /usr/bin/awk 'NR < 4'`
 		total_memory=`awk '/MemTotal/ {printf( "%d\n", $2 / 1024 )}' /proc/meminfo`
-		disk=`/bin/df --sync -h -l -t 'ext4'`
-		avail_disk=`/bin/df --sync -BG -l -t 'ext4' | grep dev | awk '{print $4}' | cut -f 1 -d "G"`
-		disk_usage_rate=`/bin/df --sync -h -l -t 'ext4' | grep dev | awk '{print $5}' | cut -f 1 -d "%"`
+		# Support multiple filesystem types (ext4, btrfs, xfs)
+		disk=`/bin/df --sync -h -l | grep -E "ext4|btrfs|xfs" | head -5`
+		# Get available disk space - use df without filesystem filter and get the root partition
+		avail_disk=`/bin/df --sync -BG / | tail -1 | awk '{print $4}' | cut -f 1 -d "G"`
+		disk_usage_rate=`/bin/df --sync -h / | tail -1 | awk '{print $5}' | cut -f 1 -d "%"`
 		cpu_load=`/usr/bin/uptime | /bin/sed 's/, /\//g' | /usr/bin/awk '{print $(NF-0)}'`
 		/bin/echo "================================================================================"
 		/bin/echo "${bold}Host  name:${normal} $hostname"

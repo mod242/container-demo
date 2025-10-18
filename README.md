@@ -74,13 +74,15 @@ Stopping and starting the containers does not destroy any data. However, if you 
 
 4. Open the ```setProperties.sh``` file for editing, and update the following information:
 	- Set the `GLOBAL_PASSWORD`
-	- Set the Registry parameters 
+	- Set the Registry parameter `CP_PASSWORD`
+	- Set `CPE_CONFIGFILES_LOC`, `ICN_CONFIGFILES_LOC`, and `PG_CONFIGFILES_LOC`to valid basic storage Locations
+	- Set `U_UID`if needed to your id
 	- Set the LICENSE_ACCEPTED parameter value after reviewing the license file:<br>
 	```LICENSE_ACCEPTED=true```
 	- Update other required parameter values if needed.
 	- Save your changes.
 
-5. In the extracted directory (Step 7), run these commands:<br>
+5. In the Base directory , run these commands:<br>
         - Add execute permissions to the script file:<br>
 		```sudo chmod u+x ./cpit.sh```<br>
         - Run the container platform installation tool:<br>
