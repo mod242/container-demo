@@ -4,8 +4,8 @@
 # What's new (November 2026)
 - Updated to IBM Content Cortex 26.0.1 IF001 (Content Platform Engine and Content Navigator images `26.0.1-IF001` from the IBM Entitled Registry)
 - The CPE client libraries (`Jace.jar`, `pe.jar`, `pe3pt.jar`, `peResources.jar`) are now copied from the CPE image into `install-scripts/CPELibs` (`install-scripts/extractCPELibs.sh`), so the domain, object store and workflow setup always uses client libraries that match the server version
-- JDK helper container switched from `ibmjava:8-sdk` to IBM Semeru Runtime 21 (`ibm-semeru-runtimes:open-21-jdk`)
-- PostgreSQL switched from the frozen `bitnamilegacy/postgresql` image to the official `postgres:17` image
+- JDK helper container switched from `ibmjava:8-sdk` to IBM Semeru Runtime 21 from the IBM Container Registry (`icr.io/appcafe/ibm-semeru-runtimes:open-21-jdk-ubi9`)
+- PostgreSQL switched from the frozen `bitnamilegacy/postgresql` image to the official `postgres:17` image, pulled from its mirror on Amazon ECR Public (`public.ecr.aws/docker/library/postgres:17`), so only OpenLDAP still comes from Docker Hub
 - CPE license model is configurable in `setProperties.sh` (`CPE_LICENSE_MODEL`)
 - Since CPE 26.0.0 only `Jace.jar` is shipped as a plain file in the image; `pe.jar`, `pe3pt.jar` and `peResources.jar` are taken from `Engine-liberty.ear`
 - HTTPS for CPE and Navigator: the images ship a `key.jks` that does not match their keystore password, so `config-files/common/keystore.xml` lets Liberty generate its own self-signed keystore (`key.p12`)
@@ -22,16 +22,18 @@ In a standard container deployment, you use existing database and directory serv
 
 Because this complete platform relies on OpenLDAP and a generic Postgresql database configuration, this installation method is not appropriate for production-level use. You can use this platform installation tool to create environments for demonstration or testing purposes, or to try out the P8 Platform system in a container environment before you move to containers.
 
-The platform installation tool requires library files and service containers from a number of different locations. Before you begin, verify that you have valid login credentials for the following image sources:
+The platform installation tool pulls its container images from several registries. Only the IBM Entitled Registry (`cp.icr.io`) requires credentials (your IBM entitlement key); all other images are pulled anonymously:
 
-    The Docker Hub
-    IBM Container Registry
+    IBM Entitled Registry (cp.icr.io): Content Platform Engine and Content Navigator, entitlement key required
+    IBM Container Registry (icr.io): IBM Semeru Runtime JDK
+    Amazon ECR Public (public.ecr.aws): PostgreSQL
+    Docker Hub: OpenLDAP
 
-This utility contains scripts to set up an IBM FileNet Content Manager container environment by performing the following tasks:
+This utility contains scripts to set up an IBM Content Cortex container environment by performing the following tasks:
 
 - Configure and start all the required containers.
 - Create the LDAP users and groups
-- Create and configure Db2 databases
+- Create and configure the PostgreSQL databases (default, `DATABASE=postgresql`). Db2 (`DATABASE=db2`) is still contained in the scripts, but has not been tested with Content Cortex 26.
 - Create a FileNet P8 Domain, object store and workflow system.
 - Create an IBM Content Navigator repository and desktop.
 
@@ -47,8 +49,8 @@ The Container Platform Installation Tool is only supported on operating systems 
 ## System software requirements
 - Docker CE or EE 20.10.7
 - OpenLDAP 1.5.0 container from [Docker Hub](https://hub.docker.com/r/osixia/openldap/)
-- PostgreSQL 17 from [Docker Hub](https://hub.docker.com/_/postgres)
-- IBM Semeru Runtime 21 JDK from [Docker Hub](https://hub.docker.com/_/ibm-semeru-runtimes)
+- PostgreSQL 17, official Docker image from its mirror on [Amazon ECR Public](https://gallery.ecr.aws/docker/library/postgres)
+- IBM Semeru Runtime 21 JDK from the IBM Container Registry (`icr.io/appcafe/ibm-semeru-runtimes:open-21-jdk-ubi9`, no login required)
 - Content Platform Engine and Content Navigator 26.0.1 images from the IBM Entitled Registry (`cp.icr.io`), entitlement key required
 - ECM Container PIT installer from [GitHub](https://github.com/mod242/container-demo)
 

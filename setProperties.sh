@@ -54,8 +54,8 @@ DB2_REGISTRY_URL=ibmcom
 DB2_IMAGE_NAME=db2
 DB2_IMAGE_TAG=11.5.5.1
 
-# Postgresql container info (official image from Docker Hub)
-PG_REGISTRY_URL=library
+# Postgresql container info (official Docker image, mirrored on Amazon ECR Public, no login required)
+PG_REGISTRY_URL=public.ecr.aws/docker/library
 PG_IMAGE_NAME=postgres
 PG_IMAGE_TAG=17
 
@@ -191,8 +191,8 @@ LDAP_HTTP_PORT=80
 LDAP_RESTART=unless-stopped
 
 # JDK container parameters
-JDK_IMAGE_NAME=ibm-semeru-runtimes
-JDK_IMAGE_TAG=open-21-jdk
+JDK_IMAGE_NAME=icr.io/appcafe/ibm-semeru-runtimes
+JDK_IMAGE_TAG=open-21-jdk-ubi9
 JDK_CONTAINER_NAME=ibmjdk
 
 # CPE domain parameters
