@@ -13,13 +13,13 @@ if [[ $ScriptsDir = "" ]]; then
 fi
 
 function readFNCSLicense() {
-  echo -e "\033[32mYou must review the IBM FileNet Content Manager v5.5.7 License Agreement before continuing\033[0m"
+  echo -e "\033[32mYou must review the IBM Content Cortex 26.0.1 license information before continuing\033[0m"
   sleep 3
   less -M -f -c $ScriptsDir/../FNCS_License.txt
 }
 
 function readICNLicense() {
-  echo -e "\033[32mYou must review the IBM Content Navigator 3.0.10 License Agreement before continuing\033[0m"
+  echo -e "\033[32mYou must review the IBM Content Navigator 26.0.0 license information before continuing\033[0m"
   sleep 3
   less -M -f -c $ScriptsDir/../ICN_License.txt
 }

@@ -1,17 +1,17 @@
-#/bin/bash
+#!/bin/bash
+# Runs inside the postgres container (as root via docker exec)
 
+SCRIPT_DIR=/tmp/PG_script
 
-# Change file ownership and folder permissions for non-root execution
-# chown 1001:0 /bitnami/postgresql/*.sh
-# chown 1001:0 /bitnami/postgresql/*.sql
-chmod 755 /bitnami/postgresql/*.sh
-
+# Tablespace folders for the workflow system, must be owned by the postgres user
+mkdir -p /pgstorage/ts/vwdata /pgstorage/ts/vwindex /pgstorage/ts/vwblob
+chown -R postgres:postgres /pgstorage/ts
+chmod 700 /pgstorage/ts/vwdata /pgstorage/ts/vwindex /pgstorage/ts/vwblob
 
 # Run the database creation scripts
 echo "Begin to create GCDDB database"
-/bitnami/postgresql/GCDDB.sh GCDDB
+/bin/bash $SCRIPT_DIR/GCDDB.sh GCDDB || exit 1
 echo "Begin to create OS1DB database"
-/bitnami/postgresql/OS1DB.sh OS1DB
+/bin/bash $SCRIPT_DIR/OS1DB.sh OS1DB || exit 1
 echo "Begin to create ICNDB database"
-/bitnami/postgresql/ICNDB.sh ICNDB
-
+/bin/bash $SCRIPT_DIR/ICNDB.sh ICNDB || exit 1

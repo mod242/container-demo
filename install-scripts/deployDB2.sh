@@ -53,10 +53,10 @@ function deployDB2Container() {
     echo "Start Db2 docker container now..."
     containerID=`docker ps -a -q --filter name=$DB2_CONTAINER_NAME$`
     if [ "$containerID" = "" ]; then
-        result=$(docker run -d -h $DB2_HOST_NAME --name $DB2_CONTAINER_NAME --add-host=$HOST_NAME:172.17.0.1 --restart=$DB2_RESTART --privileged=$DB2_PRIVILEGED -p $DB2_HTTP_PORT:$DB2_HTTP_PORT --env-file $DB2_CONFIGFILES_LOC/$DB2_SCRIPT/$ENV_LIST -v $DB2_CONFIGFILES_LOC/$DB2_SCRIPT:/tmp/db2_script -v $DB2_CONFIGFILES_LOC/$DB2_STORAGE_FOLDER:/db2fs $DB2_REGISTRY_URL/$DB2_IMAGE_NAME:$DB2_IMAGE_TAG)
+        result=$(docker run -d -h $DB2_HOST_NAME --name $DB2_CONTAINER_NAME --add-host=$HOST_NAME:host-gateway --restart=$DB2_RESTART --privileged=$DB2_PRIVILEGED -p $DB2_HTTP_PORT:$DB2_HTTP_PORT --env-file $DB2_CONFIGFILES_LOC/$DB2_SCRIPT/$ENV_LIST -v $DB2_CONFIGFILES_LOC/$DB2_SCRIPT:/tmp/db2_script -v $DB2_CONFIGFILES_LOC/$DB2_STORAGE_FOLDER:/db2fs $DB2_REGISTRY_URL/$DB2_IMAGE_NAME:$DB2_IMAGE_TAG)
     else
         docker ps -a -q --filter name=$DB2_CONTAINER_NAME | grep -q . && docker stop $DB2_CONTAINER_NAME && docker rm -fv $DB2_CONTAINER_NAME
-        result=$(docker run -d -h $DB2_HOST_NAME --name $DB2_CONTAINER_NAME  --add-host=$HOST_NAME:172.17.0.1 --restart=$DB2_RESTART --privileged=$DB2_PRIVILEGED -p $DB2_HTTP_PORT:$DB2_HTTP_PORT --env-file $DB2_CONFIGFILES_LOC/$DB2_SCRIPT/$ENV_LIST -v $DB2_CONFIGFILES_LOC/$DB2_SCRIPT:/tmp/db2_script -v $DB2_CONFIGFILES_LOC/$DB2_STORAGE_FOLDER:/db2fs $DB2_REGISTRY_URL/$DB2_IMAGE_NAME:$DB2_IMAGE_TAG)
+        result=$(docker run -d -h $DB2_HOST_NAME --name $DB2_CONTAINER_NAME  --add-host=$HOST_NAME:host-gateway --restart=$DB2_RESTART --privileged=$DB2_PRIVILEGED -p $DB2_HTTP_PORT:$DB2_HTTP_PORT --env-file $DB2_CONFIGFILES_LOC/$DB2_SCRIPT/$ENV_LIST -v $DB2_CONFIGFILES_LOC/$DB2_SCRIPT:/tmp/db2_script -v $DB2_CONFIGFILES_LOC/$DB2_STORAGE_FOLDER:/db2fs $DB2_REGISTRY_URL/$DB2_IMAGE_NAME:$DB2_IMAGE_TAG)
     fi
     if [[ "" = $result ]]; then
         echo -e "\033[31mStart $DB2_CONTAINER_NAME container failed \033[0m"

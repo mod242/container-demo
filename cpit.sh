@@ -55,6 +55,9 @@ else
     source $ScriptsDir/downloadImages.sh
 fi
 
+# Copy the CPE client libraries (Jace.jar, pe*.jar) matching the CPE image into install-scripts/CPELibs
+source $ScriptsDir/extractCPELibs.sh
+
 if grep -q "deployJDK: Completed" $filename; then
     echo "Skipping deployJDK.sh, as it was completed during previous execution!"
 else

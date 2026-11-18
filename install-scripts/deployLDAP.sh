@@ -18,10 +18,10 @@ source $ScriptsDir/../setProperties.sh
 function startLDAP() {
     ldapContainerId=`docker ps -a -q --filter name=$LDAP_CONTAINER_NAME$`
     if [ "$ldapContainerId" = "" ]; then
-        result=$(docker run -d -t --name=$LDAP_CONTAINER_NAME --add-host=$HOST_NAME:172.17.0.1 --restart=$LDAP_RESTART -p $LDAP_PORT:389 -p $LDAP_HTTP_PORT:80 --env LDAP_BASE_DN=$LDAP_BASE_DN --env LDAP_DOMAIN=$LDAP_DOMAIN --env LDAP_ADMIN_PASSWORD=$GLOBAL_PASSWORD $LDAP_REGISTRY_URL/$LDAP_IMAGE_NAME:$LDAP_IMAGE_TAG bash)
+        result=$(docker run -d -t --name=$LDAP_CONTAINER_NAME --add-host=$HOST_NAME:host-gateway --restart=$LDAP_RESTART -p $LDAP_PORT:389 -p $LDAP_HTTP_PORT:80 --env LDAP_BASE_DN=$LDAP_BASE_DN --env LDAP_DOMAIN=$LDAP_DOMAIN --env LDAP_ADMIN_PASSWORD=$GLOBAL_PASSWORD $LDAP_REGISTRY_URL/$LDAP_IMAGE_NAME:$LDAP_IMAGE_TAG bash)
     else
         docker stop $LDAP_CONTAINER_NAME && docker rm -fv $LDAP_CONTAINER_NAME
-        result=$(docker run -d -t --name=$LDAP_CONTAINER_NAME --add-host=$HOST_NAME:172.17.0.1 --restart=$LDAP_RESTART -p $LDAP_PORT:389 -p $LDAP_HTTP_PORT:80 --env LDAP_BASE_DN=$LDAP_BASE_DN --env LDAP_DOMAIN=$LDAP_DOMAIN --env LDAP_ADMIN_PASSWORD=$GLOBAL_PASSWORD $LDAP_REGISTRY_URL/$LDAP_IMAGE_NAME:$LDAP_IMAGE_TAG bash)
+        result=$(docker run -d -t --name=$LDAP_CONTAINER_NAME --add-host=$HOST_NAME:host-gateway --restart=$LDAP_RESTART -p $LDAP_PORT:389 -p $LDAP_HTTP_PORT:80 --env LDAP_BASE_DN=$LDAP_BASE_DN --env LDAP_DOMAIN=$LDAP_DOMAIN --env LDAP_ADMIN_PASSWORD=$GLOBAL_PASSWORD $LDAP_REGISTRY_URL/$LDAP_IMAGE_NAME:$LDAP_IMAGE_TAG bash)
     fi
     if [[ "" = $result ]]; then
         echo -e "\033[31mStart $LDAP_CONTAINER_NAME container failed \033[0m"

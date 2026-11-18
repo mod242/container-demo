@@ -1,8 +1,22 @@
 # ECM Container Platform Installation Tool 
 
 
+# What's new (November 2026)
+- Updated to IBM Content Cortex 26.0.1 IF001 (Content Platform Engine and Content Navigator images `26.0.1-IF001` from the IBM Entitled Registry)
+- The CPE client libraries (`Jace.jar`, `pe.jar`, `pe3pt.jar`, `peResources.jar`) are now copied from the CPE image into `install-scripts/CPELibs` (`install-scripts/extractCPELibs.sh`), so the domain, object store and workflow setup always uses client libraries that match the server version
+- JDK helper container switched from `ibmjava:8-sdk` to IBM Semeru Runtime 21 (`ibm-semeru-runtimes:open-21-jdk`)
+- PostgreSQL switched from the frozen `bitnamilegacy/postgresql` image to the official `postgres:17` image
+- CPE license model is configurable in `setProperties.sh` (`CPE_LICENSE_MODEL`)
+- Since CPE 26.0.0 only `Jace.jar` is shipped as a plain file in the image; `pe.jar`, `pe3pt.jar` and `peResources.jar` are taken from `Engine-liberty.ear`
+- HTTPS for CPE and Navigator: the images ship a `key.jks` that does not match their keystore password, so `config-files/common/keystore.xml` lets Liberty generate its own self-signed keystore (`key.p12`)
+- Containers reach the Docker host via `--add-host=<hostname>:host-gateway` instead of the hard-coded `172.17.0.1`, so a custom Docker bridge address (`bip`) works as well
+- Fixes: host name placeholders in the configuration files, PostgreSQL mount location rewrite in `updateConfigFiles.sh`, PostgreSQL status tracking in `cpit.sh`, docker-py check on Python 3.14, which removed `pkgutil.find_loader` (`gatherHostInfo.sh`), failed ICN desktop creation is no longer reported as successful
+- License files updated to the IBM Content Cortex 26.0.1 and Content Navigator license information shipped in the container images (`FNCS_License.txt`, `ICN_License.txt`)
+- `cpit.sh` no longer needs root on Linux: run it as a member of the `docker` group, the data is then stored in your own home folder
+- `cleanup.sh` only removes the Container PIT containers and data instead of all containers on the host, also removes the PostgreSQL data, no longer uninstalls system packages and supports `--dry-run`, `--images` and `-y`
+
 # Overview
-The all-in-one installation tool for containers installs all the required software and configuration information needed to deploy FileNet P8 Platform in a container environment. This tool quickly creates functional P8 Platform environments for demo or non-production purposes only.
+The all-in-one installation tool for containers installs all the required software and configuration information needed to deploy IBM Content Cortex (formerly FileNet Content Manager / FileNet P8 Platform) in a container environment. This tool quickly creates functional P8 Platform environments for demo or non-production purposes only.
 
 In a standard container deployment, you use existing database and directory server installations, or create new ones, to support the content management services containers. With the container platform installation tool, however, those supporting software prerequisites are installed and configured by the tool. The result is a complete container platform that is ready to use in a very short amount of time.
 
@@ -33,14 +47,16 @@ The Container Platform Installation Tool is only supported on operating systems 
 ## System software requirements
 - Docker CE or EE 20.10.7
 - OpenLDAP 1.5.0 container from [Docker Hub](https://hub.docker.com/r/osixia/openldap/)
-- PostgreSQL 17 from [Docker Hub](https://hub.docker.com/r/bitnamilegacy/postgresql)
+- PostgreSQL 17 from [Docker Hub](https://hub.docker.com/_/postgres)
+- IBM Semeru Runtime 21 JDK from [Docker Hub](https://hub.docker.com/_/ibm-semeru-runtimes)
+- Content Platform Engine and Content Navigator 26.0.1 images from the IBM Entitled Registry (`cp.icr.io`), entitlement key required
 - ECM Container PIT installer from [GitHub](https://github.com/mod242/container-demo)
 
 **NOTE**: Container PIT scripts cannot be used to upgrade from earlier versions of the Content Platform Engine and Content Navigator containers. **A clean environment is required to run the Container PIT scripts.**
 
 # Limitations
 ## 1. Special notice for systems with multiple accounts
-This utility requires administrative privileges to install system packages, so it should be run as the `root` user (or sudo).
+On Linux, run the installer as a regular user who is a member of the `docker` group (check with ```id -nG```, add with ```sudo usermod -aG docker $USER``` and log in again). Running it with sudo works as well, but then all data is stored under `/root/cpit_data` (see [Mount volume locations](#mount-volume-locations)). Only `cleanup.sh` needs root, because the PostgreSQL data files are owned by the `postgres` user of the container.
 
 If there are multiple system accounts on the target machine and you are unable to login as root (especially on MacOS), then you should check the account user ids and login with the account that has a user id 501. Otherwise you will have Db2 permission issues. Most often the user account created first will be assigned a user id 501.
 
@@ -70,7 +86,7 @@ Stopping and starting the containers does not destroy any data. However, if you 
 
 2. Install Python3
 
-3. Review the license agreement file: ```FNCS_License.txt```
+3. Review the license information files: ```FNCS_License.txt``` (IBM Content Cortex) and ```ICN_License.txt``` (IBM Content Navigator). They are copied from the `/licenses` folder of the Content Cortex container images.
 
 4. Open the ```setProperties.sh``` file for editing, and update the following information:
 	- Set the `GLOBAL_PASSWORD`
@@ -84,9 +100,9 @@ Stopping and starting the containers does not destroy any data. However, if you 
 
 5. In the Base directory , run these commands:<br>
         - Add execute permissions to the script file:<br>
-		```sudo chmod u+x ./cpit.sh```<br>
-        - Run the container platform installation tool:<br>
-        ```sudo ./cpit.sh```
+		```chmod u+x ./cpit.sh```<br>
+        - Run the container platform installation tool (as a member of the `docker` group, without sudo):<br>
+        ```./cpit.sh```
 
 # Post-install verification
 1. After the tool completes, review the output log file ```cpit_log.log```
@@ -110,8 +126,10 @@ Stopping and starting the containers does not destroy any data. However, if you 
 		- Password: GLOBAL_PASSWORD
 
 # Remove the Container Platform Installation Tool
-1. To remove the software components installed by the Container PIT, run the command:<br>
-	```sudo install-scripts/cleanup.sh```
+1. To remove the containers and data created by the Container PIT, run the command:<br>
+	```sudo install-scripts/cleanup.sh```<br>
+	Only the containers named in `setProperties.sh` (with their anonymous volumes), their data folders (`<home>/cpit_data/<name>_data`), the extraction folder and the install status are removed. Other containers, images and installed packages are not touched.<br>
+	Options: `--dry-run` shows what would be removed, `--images` also removes the container images used by the Container PIT (unless another container still uses them), `-y` skips the confirmation.
 
 2. Delete the folder containing the extracted Container PIT archive
 
@@ -127,10 +145,10 @@ To resolve this issue do the following:<br>
 # Storage
 ## Mount volume locations
 The mount volumes specified in the ```setProperties.sh``` file will be created under the home folder of the user that is currently logged in.<br>
-E.g., if you login as root and the mount volume for CPE is set to ```CPE_CONFIGFILES_LOC=~/cpit_data/cpe_data```, then during execution it will be modified to ```CPE_CONFIGFILES_LOC=/root/cpit_data/cpe_data``` and the folder ```/root/cpit_data/cpe_data``` will be created to store all the configuration files.
+E.g., if you run ```./cpit.sh``` as user `user`, the data is stored under ```/home/user/cpit_data```. If you run it with sudo or as root, ```CPE_CONFIGFILES_LOC``` is modified to ```/root/cpit_data/cpe_data``` and all data is stored under ```/root/cpit_data```.
 
 
 # ECM product info
-- [IBM Content Platform Engine Knowledge Center](https://www.ibm.com/docs/en/filenet-p8-platform/5.7.0)
-- [IBM Content Navigator Knowledge Center](https://www.ibm.com/docs/en/content-navigator/3.2.0)
+- [IBM Content Cortex 26.0.1 documentation](https://www.ibm.com/docs/en/content-cortex/26.0.1)
+- [IBM Content Cortex container releases and image tags](https://github.com/ibm-ecm/ibm-content-cortex-containers/releases)
 

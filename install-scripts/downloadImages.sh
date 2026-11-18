@@ -19,14 +19,14 @@ source $ScriptsDir/../setProperties.sh
 function downloadImages_IBMJDK() {
 	jdk_version=$(docker image inspect $JDK_IMAGE_NAME:$JDK_IMAGE_TAG)
 	if [ $? -ne 0 ]; then
-		echo "Downloading IBM SDK container"
+		echo "Downloading JDK container $JDK_IMAGE_NAME:$JDK_IMAGE_TAG"
 #		docker logout
 		if [[ $REGISTRY_USERNAME != "" ]] && [[ $REGISTRY_PASSWORD != "" ]]; then
 			docker login -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD
 		fi
 		docker pull $JDK_IMAGE_NAME:$JDK_IMAGE_TAG
 	else
-		echo "IBM SDK container already loaded....skipping download"
+		echo "JDK container already loaded....skipping download"
 	fi
 }
 

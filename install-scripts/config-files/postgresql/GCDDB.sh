@@ -14,7 +14,9 @@ arg1=$1
 P8DBNAME=$1
 PGUSER=ceuser
 
-PGPASSWORD=FileNet psql -U postgres <<End_of_file
+PGPASSWORD=FileNet psql -v ON_ERROR_STOP=1 -U postgres <<End_of_file
+create user $PGUSER with password 'FileNet';
+create database $P8DBNAME owner $PGUSER template template0 encoding UTF8;
 revoke connect on database $P8DBNAME from public;
 grant all privileges on database $P8DBNAME to $PGUSER;
 grant connect, temp, create on database $P8DBNAME to $PGUSER;

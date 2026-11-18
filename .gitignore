@@ -1,0 +1,10 @@
+# Runtime files written by cpit.sh
+cpit_log.log
+log.fifo
+install-scripts/status.log
+install-scripts/status.log.bak
+install-scripts/CPELibs/.source-image
+icnadmin/logs/*.log
+**/__pycache__/
+# Local copies of the properties file
+setProperties.sh.*

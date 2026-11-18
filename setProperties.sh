@@ -33,31 +33,31 @@ CP_REGISTRY_URL=cp.icr.io
 # ECM containers downloaded from IBM Passport Advantage (only necessarry if GET_IMAGE_FROM_REGISTRY is false)
 # Images download location
 DOWNLOAD_LOCATION=/home/user/Downloads
-# CPE Container image file name
-CPE_IMAGE_FILE=IFCPE_5.7.0_LNX_ML.tar.gz 
-# Content Navigator image file name
-ICN_IMAGE_FILE=ICN_3.2.0_LNX_ML.tar 
+# CPE Container image file name (set to the name of the CPE 26.0.1 container archive downloaded from Passport Advantage)
+CPE_IMAGE_FILE=
+# Content Navigator image file name (set to the name of the ICN 26.0.1 container archive downloaded from Passport Advantage)
+ICN_IMAGE_FILE=
 
 
 # CPE Container Tags
 CPE_REGISTRY_URL=cp/cp4a/fncm
 CPE_IMAGE_NAME=cpe
-CPE_IMAGE_TAG=ga-570-p8cpe-if001
+CPE_IMAGE_TAG=26.0.1-IF001
 
 # ICN Container Tags
 ICN_REGISTRY_URL=cp/cp4a/ban
 ICN_IMAGE_NAME=navigator
-ICN_IMAGE_TAG=ga-320-icn-if001
+ICN_IMAGE_TAG=26.0.1-IF001
 
 # Downloaded DB2 container info
 DB2_REGISTRY_URL=ibmcom
 DB2_IMAGE_NAME=db2
 DB2_IMAGE_TAG=11.5.5.1
 
-# Downloaded Postgresql container info
-PG_REGISTRY_URL=bitnamilegacy
-PG_IMAGE_NAME=postgresql
-PG_IMAGE_TAG=17.0.0
+# Postgresql container info (official image from Docker Hub)
+PG_REGISTRY_URL=library
+PG_IMAGE_NAME=postgres
+PG_IMAGE_TAG=17
 
 
 # Downloaded OpenLDAP container info
@@ -160,6 +160,8 @@ CPE_HTTPS_PORT=9443
 #CPE_IMAGE_NAME=filenet_content_platform_engine
 #CPE_IMAGE_TAG=latest
 CPE_CONTAINER_HOST_NAME=cpe-host1
+# License model passed to the CPE container (non-production)
+CPE_LICENSE_MODEL=FNCM.PVUNonProd
 CPE_RESTART=unless-stopped
 
 # ICN container parameters
@@ -189,8 +191,8 @@ LDAP_HTTP_PORT=80
 LDAP_RESTART=unless-stopped
 
 # JDK container parameters
-JDK_IMAGE_NAME=ibmjava
-JDK_IMAGE_TAG=8-sdk
+JDK_IMAGE_NAME=ibm-semeru-runtimes
+JDK_IMAGE_TAG=open-21-jdk
 JDK_CONTAINER_NAME=ibmjdk
 
 # CPE domain parameters

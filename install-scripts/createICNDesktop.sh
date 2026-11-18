@@ -29,6 +29,7 @@ do
 			--objStoreName $P8OS_NAME --featureList browsePane searchPane favorites workPane  --defaultFeature browsePane  \
 			--desktopId $DESKTOP_ID --desktopName $DESKTOP_NAME --isDefault true --desktopDesc $DESKTOP_DES --applicationName ECM Containers Demo \
 			--osDisplayName $REPOSITORY_NAME --defaultRepo $REPOSITORY_NAME --connectionPoint $PE_CONNPT_NAME:$PE_REGION_NUMBER
+		desktopResult=$?
 		break
         else
                 echo "$i. Navigator has not started yet, wait 30 seconds and try again...."
@@ -47,7 +48,7 @@ if [[ "$containerReady" == "false" ]]; then
         exit_script
 fi
 
-if [ $? -eq 0 ] ;then
+if [ "$desktopResult" = "0" ] ;then
   echo -e "\033[36mFinished creating ICN desktop '$DESKTOP_NAME' successfully \033[0m"
 	sed -i.bak 's/createICNDesktop: NotCompleted/createICNDesktop: Completed/g' $filename
 else

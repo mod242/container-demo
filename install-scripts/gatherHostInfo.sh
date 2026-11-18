@@ -214,7 +214,7 @@ if [[ $DATABASE = "postgresql" ]] || [[ $DATABASE = "POSTGRESQL" ]]; then
 fi
 
 ###### Check for Docker-py ############
-python3 -c "import sys, pkgutil; sys.exit(0 if pkgutil.find_loader(sys.argv[1]) else 1)" docker
+python3 -c "import sys, importlib.util; sys.exit(0 if importlib.util.find_spec(sys.argv[1]) else 1)" docker
 if [ $? -ne 0 ]; then
 	echo -e "\033[31mDidn't find docker-py\033[0m"
 	echo -e "\033[31mPlease install via pip or your local package manager\033[0m"

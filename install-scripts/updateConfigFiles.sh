@@ -186,7 +186,7 @@ function modifyMountLocation(){
 			sed -i "s#CPE_CONFIGFILES_LOC=.*#CPE_CONFIGFILES_LOC=$home/cpit_data/cpe_data#g"  $ScriptsDir/../setProperties.sh
 			sed -i "s#ICN_CONFIGFILES_LOC=.*#ICN_CONFIGFILES_LOC=$home/cpit_data/icn_data#g"  $ScriptsDir/../setProperties.sh
 			sed -i "s#DB2_CONFIGFILES_LOC=.*#DB2_CONFIGFILES_LOC=$home/cpit_data/db2_data#g"  $ScriptsDir/../setProperties.sh
-			sed -i "s#PG_CONFIGFILES_LOC=.*#ÜG_CONFIGFILES_LOC=$home/cpit_data/pg_data#g"  $ScriptsDir/../setProperties.sh
+			sed -i "s#PG_CONFIGFILES_LOC=.*#PG_CONFIGFILES_LOC=$home/cpit_data/pg_data#g"  $ScriptsDir/../setProperties.sh
 
 		fi
 	else

@@ -22,10 +22,10 @@ function deployJDKContainer() {
     echo "Start JDK docker container now..."
     containerID=`docker ps -a -q --filter name=$JDK_CONTAINER_NAME$`
     if [ "$containerID" = "" ]; then
-        result=$(docker run -d -t --name $JDK_CONTAINER_NAME --add-host=$HOST_NAME:172.17.0.1 -v $ScriptsDir:$ScriptsDir $JDK_IMAGE_NAME:$JDK_IMAGE_TAG)
+        result=$(docker run -d -t --name $JDK_CONTAINER_NAME --add-host=$HOST_NAME:host-gateway -v $ScriptsDir:$ScriptsDir $JDK_IMAGE_NAME:$JDK_IMAGE_TAG tail -f /dev/null)
     else
         docker ps -a -q --filter name=$JDK_CONTAINER_NAME | grep -q . && docker stop $JDK_CONTAINER_NAME && docker rm -fv $JDK_CONTAINER_NAME
-        result=$(docker run -d -t --name $JDK_CONTAINER_NAME --add-host=$HOST_NAME:172.17.0.1 -v $ScriptsDir:$ScriptsDir $JDK_IMAGE_NAME:$JDK_IMAGE_TAG)
+        result=$(docker run -d -t --name $JDK_CONTAINER_NAME --add-host=$HOST_NAME:host-gateway -v $ScriptsDir:$ScriptsDir $JDK_IMAGE_NAME:$JDK_IMAGE_TAG tail -f /dev/null)
     fi
     if [[ "" = $result ]]; then
         echo -e "\033[31mStart $JDK_CONTAINER_NAME container failed \033[0m"

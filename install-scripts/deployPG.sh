@@ -24,22 +24,16 @@ function createPGConfigFolder() {
         echo -e "  - creating $PG_CONFIGFILES_LOC/$folder"
         mkdir -p $PG_CONFIGFILES_LOC/$folder
     done
-    mkdir -p $PG_CONFIGFILES_LOC/$PG_STORAGE_FOLDER/conf/conf.d/
-    echo max_prepared_transactions=100 > $PG_CONFIGFILES_LOC/$PG_STORAGE_FOLDER/conf/conf.d/xa.conf
-    mkdir -p $PG_CONFIGFILES_LOC/$PG_STORAGE_FOLDER/ts/vwdata/
-    mkdir -p $PG_CONFIGFILES_LOC/$PG_STORAGE_FOLDER/ts/vwindex/
-    mkdir -p $PG_CONFIGFILES_LOC/$PG_STORAGE_FOLDER/ts/vwblob/
-
+    # Data directory and tablespace folders are created inside the container (owned by the postgres user)
     chmod -R 777 $PG_CONFIGFILES_LOC
-    chown -R $U_UID $PG_CONFIGFILES_LOC
-    echo "Created PG config and Tablespace folder successfully"
+    echo "Created PG config and storage folder successfully"
 }
 
 function copyPGConfigFiles() {
     echo "Copy Postgresql configuration files start..."
     cd $ScriptsDir/config-files/postgresql
-    if (ls $GCDDB_SCRIPT && ls $OS1DB_SCRIPT && ls $ICNDB_SCRIPT && ls $ENV_LIST && ls $SETUP_DB && ls $PG_ONE_SCRIPT) >/dev/null 2>&1 ; then
-        cp -f $GCDDB_SCRIPT $OS1DB_SCRIPT $ICNDB_SCRIPT $ENV_LIST $SETUP_DB $PG_ONE_SCRIPT $PG_CONFIGFILES_LOC/$PG_SCRIPT
+    if (ls $GCDDB_SCRIPT && ls $OS1DB_SCRIPT && ls $ICNDB_SCRIPT && ls $ENV_LIST && ls $SETUP_DB) >/dev/null 2>&1 ; then
+        cp -f $GCDDB_SCRIPT $OS1DB_SCRIPT $ICNDB_SCRIPT $ENV_LIST $SETUP_DB $PG_CONFIGFILES_LOC/$PG_SCRIPT
     else
         echo "You missed some necessary Postgresql configuration files"
         exit_script
@@ -52,10 +46,10 @@ function deployPGContainer() {
     echo "Start PG docker container now..."
     containerID=`docker ps -a -q --filter name=$PG_CONTAINER_NAME$`
     if [ "$containerID" = "" ]; then
-        result=$(docker run -d --name $PG_CONTAINER_NAME --add-host=$HOST_NAME:172.17.0.1 --restart=$PG_RESTART -p $PG_HTTP_PORT:$PG_HTTP_PORT -u $U_UID --env-file $PG_CONFIGFILES_LOC/$PG_SCRIPT/$ENV_LIST -v $PG_CONFIGFILES_LOC/$PG_SCRIPT:/tmp/PG_script -v $PG_CONFIGFILES_LOC/$PG_STORAGE_FOLDER:/bitnami/postgresql $PG_REGISTRY_URL/$PG_IMAGE_NAME:$PG_IMAGE_TAG)
+        result=$(docker run -d --name $PG_CONTAINER_NAME --add-host=$HOST_NAME:host-gateway --restart=$PG_RESTART -p $PG_HTTP_PORT:5432 --env-file $PG_CONFIGFILES_LOC/$PG_SCRIPT/$ENV_LIST -e PGDATA=/pgstorage/data -v $PG_CONFIGFILES_LOC/$PG_SCRIPT:/tmp/PG_script -v $PG_CONFIGFILES_LOC/$PG_STORAGE_FOLDER:/pgstorage $PG_REGISTRY_URL/$PG_IMAGE_NAME:$PG_IMAGE_TAG postgres -c max_prepared_transactions=100)
     else
         docker ps -a -q --filter name=$PG_CONTAINER_NAME | grep -q . && docker stop $PG_CONTAINER_NAME && docker rm -fv $PG_CONTAINER_NAME
-        result=$(docker run -d --name $PG_CONTAINER_NAME  --add-host=$HOST_NAME:172.17.0.1 --restart=$PG_RESTART -p $PG_HTTP_PORT:$PG_HTTP_PORT -u $U_UID --env-file $PG_CONFIGFILES_LOC/$PG_SCRIPT/$ENV_LIST -v $PG_CONFIGFILES_LOC/$PG_SCRIPT:/tmp/PG_script -v $PG_CONFIGFILES_LOC/$PG_STORAGE_FOLDER:/bitnami/postgresql $PG_REGISTRY_URL/$PG_IMAGE_NAME:$PG_IMAGE_TAG)
+        result=$(docker run -d --name $PG_CONTAINER_NAME  --add-host=$HOST_NAME:host-gateway --restart=$PG_RESTART -p $PG_HTTP_PORT:5432 --env-file $PG_CONFIGFILES_LOC/$PG_SCRIPT/$ENV_LIST -e PGDATA=/pgstorage/data -v $PG_CONFIGFILES_LOC/$PG_SCRIPT:/tmp/PG_script -v $PG_CONFIGFILES_LOC/$PG_STORAGE_FOLDER:/pgstorage $PG_REGISTRY_URL/$PG_IMAGE_NAME:$PG_IMAGE_TAG postgres -c max_prepared_transactions=100)
     fi
     if [[ "" = $result ]]; then
         echo -e "\033[31mStart $PG_CONTAINER_NAME container failed \033[0m"
@@ -66,8 +60,10 @@ function deployPGContainer() {
     i=0
     while(($i<=$TIME_OUT*2))
         do
-           tmp=`docker logs $PG_CONTAINER_NAME 2>&1 | grep "database system is ready to accept connections"`
-            if [ "$tmp"x = ""x ]; then
+           # During initialization the server listens on the Unix socket only, so a TCP check
+           # succeeds only after the initialization has finished and the final server is up
+           docker exec $PG_CONTAINER_NAME pg_isready -q -h 127.0.0.1 -p 5432 >/dev/null 2>&1
+            if [ $? -ne 0 ]; then
                 let i++
                 echo -e " $i. Postgresql docker container still not ready, wait 10 seconds and check again...."
                 sleep 10
@@ -87,11 +83,7 @@ function deployPGContainer() {
 function createDB() {
   echo "Begin to create the GCDDB,ICNDB,OS1DB database..."
   containerID=`docker ps -a -q --filter name=$PG_CONTAINER_NAME$`
-  docker cp $PG_CONFIGFILES_LOC/$PG_SCRIPT/$GCDDB_SCRIPT $containerID:/bitnami/postgresql
-  docker cp $PG_CONFIGFILES_LOC/$PG_SCRIPT/$OS1DB_SCRIPT $containerID:/bitnami/postgresql
-  docker cp $PG_CONFIGFILES_LOC/$PG_SCRIPT/$ICNDB_SCRIPT $containerID:/bitnami/postgresql
-  docker cp $PG_CONFIGFILES_LOC/$PG_SCRIPT/$SETUP_DB $containerID:/bitnami/postgresql
-  docker exec -i $PG_CONTAINER_NAME /bin/bash /bitnami/postgresql/setup_db.sh
+  docker exec -i $PG_CONTAINER_NAME /bin/bash /tmp/PG_script/$SETUP_DB
 
 if [ ! $? -eq 0 ] ; then
     echo -e "\033[31mFailed to create the databases. \033[0m"
@@ -108,7 +100,7 @@ duration_1=$((($end_time_1-$start_time_1)/60))
 echo -e "\033[36mDeploy $PG_CONTAINER_NAME container and create database took $duration_1 minute(s) \033[0m"
 if [ $? -eq 0 ] ; then
     echo -e "\033[36mFinished deploying $PG_CONTAINER_NAME container and created the databases successfully \033[0m"
-    sed -i.bak 's/deployDB: NotCompleted/deployPG: Completed/g' $filename
+    sed -i.bak 's/deployDB: NotCompleted/deployDB: Completed/g' $filename
 else
     exit_script
 fi
